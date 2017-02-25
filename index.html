@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>我想静静 2016.10.29 08:18:02</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="//assest.meikemeiyin.cn/css/video-js.min.css" rel="stylesheet">
+    <!-- If you'd like to support IE8 -->
+    <script src="//assest.meikemeiyin.cn/js/videojs-ie8.min.js"></script>
+    <style type="text/css">
+    .mui-preview-image.mui-fullscreen {
+        position: fixed;
+        z-index: 20;
+        background-color: #000
+    }
+    
+    .mui-preview-header,
+    .mui-preview-footer {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: 10
+    }
+    
+    .mui-preview-header {
+        height: 44px;
+        top: 0
+    }
+    
+    .mui-preview-footer {
+        height: 50px;
+        bottom: 0
+    }
+    
+    .mui-preview-header .mui-preview-indicator {
+        display: block;
+        line-height: 25px;
+        color: #fff;
+        text-align: center;
+        margin: 15px auto 4;
+        width: 70px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        font-size: 16px
+    }
+    
+    .mui-preview-image {
+        display: none;
+        -webkit-animation-duration: .5s;
+        animation-duration: .5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both
+    }
+    
+    .mui-preview-image.mui-preview-in {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn
+    }
+    
+    .mui-preview-image.mui-preview-out {
+        background: 0;
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut
+    }
+    
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+        display: none
+    }
+    
+    .mui-zoom-scroller {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        -webkit-backface-visibility: hidden
+    }
+    
+    .mui-zoom {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d
+    }
+    
+    .mui-slider .mui-slider-group .mui-slider-item img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%
+    }
+    
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+        width: 100%
+    }
+    
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+        display: inline-table
+    }
+    
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+        display: table-cell;
+        vertical-align: middle
+    }
+    
+    .mui-preview-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none
+    }
+    
+    .mui-preview-loading.mui-active {
+        display: block
+    }
+    
+    .mui-preview-loading .mui-spinner-white {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+        height: 50px;
+        width: 50px
+    }
+    
+    .mui-preview-image img.mui-transitioning {
+        -webkit-transition: -webkit-transform .5s ease, opacity .5s ease;
+        transition: transform .5s ease, opacity .5s ease
+    }
+    
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    
+    @keyframes fadeIn {
+        0% {
+            opacity: 0
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    
+    @keyframes fadeOut {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    
+    p img {
+        max-width: 100%;
+        height: auto
+    }
+    /* -------------------------------- 
+
+Modules - reusable parts of our design
+
+-------------------------------- */
+    
+    .cd-container {
+        /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    .cd-container::after {
+        /* clearfix */
+        content: '';
+        display: table;
+        clear: both;
+    }
+    /* -------------------------------- 
+
+Main components 
+
+-------------------------------- */
+    
+    #cd-timeline {
+        position: relative;
+        padding: 2em 0;
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+    
+    #cd-timeline::before {
+        /* this is the vertical line */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 18px;
+        height: 100%;
+        width: 4px;
+        background: #d7e4ed;
+    }
+    
+    .cd-timeline-block {
+        position: relative;
+        margin: 2em 0;
+    }
+    
+    .cd-timeline-block:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    .cd-timeline-block:first-child {
+        margin-top: 0;
+    }
+    
+    .cd-timeline-block:last-child {
+        margin-bottom: 0;
+    }
+    
+    .cd-timeline-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .cd-timeline-img img {
+        display: block;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        margin-left: -12px;
+        margin-top: -12px;
+    }
+    
+    .cd-timeline-img.cd-picture {
+        background: #75ce66;
+    }
+    
+    .cd-timeline-content {
+        position: relative;
+        margin-left: 60px;
+        background: white;
+        border-radius: 0.25em;
+        padding: 1em;
+        box-shadow: 0 3px 0 #d7e4ed;
+    }
+    
+    .cd-timeline-content:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    .cd-timeline-content h2 {
+        color: #303e49;
+    }
+    
+    .cd-timeline-content p,
+    .cd-timeline-content .cd-read-more,
+    .cd-timeline-content .cd-date {
+        font-size: 13px;
+        font-size: 0.8125rem;
+    }
+    
+    .cd-timeline-content .cd-read-more,
+    .cd-timeline-content .cd-date {
+        display: inline-block;
+    }
+    
+    .cd-timeline-content p {
+        margin: 1em 0;
+        line-height: 1.6;
+    }
+    
+    .cd-timeline-content img {
+        width: 100%;
+    }
+    
+    .cd-timeline-content .cd-read-more {
+        float: right;
+        padding: .8em 1em;
+        background: #acb7c0;
+        color: white;
+        border-radius: 0.25em;
+    }
+    
+    .no-touch .cd-timeline-content .cd-read-more:hover {
+        background-color: #bac4cb;
+    }
+    
+    .cd-timeline-content .cd-date {
+        float: left;
+        padding: .8em 0;
+        opacity: .7;
+    }
+    
+    .cd-timeline-content::before {
+        content: '';
+        position: absolute;
+        top: 16px;
+        right: 100%;
+        height: 0;
+        width: 0;
+        border: 7px solid transparent;
+        border-right: 7px solid white;
+    }
+    
+    .spinner {
+        margin: 100px auto;
+        width: 90px;
+        height: 90px;
+        position: relative;
+        text-align: center;
+        -webkit-animation: rotate 2.0s infinite linear;
+        animation: rotate 2.0s infinite linear;
+    }
+    
+    .dot1,
+    .dot2 {
+        width: 60%;
+        height: 60%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: #67CF22;
+        border-radius: 100%;
+        -webkit-animation: bounce 2.0s infinite ease-in-out;
+        animation: bounce 2.0s infinite ease-in-out;
+    }
+    
+    .dot2 {
+        top: auto;
+        bottom: 0px;
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    
+    @-webkit-keyframes rotate {
+        100% {
+            -webkit-transform: rotate(360deg)
+        }
+    }
+    
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+            -webkit-transform: rotate(360deg)
+        }
+    }
+    
+    @-webkit-keyframes bounce {
+        0%,
+        100% {
+            -webkit-transform: scale(0.0)
+        }
+        50% {
+            -webkit-transform: scale(1.0)
+        }
+    }
+    
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        }
+        50% {
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="splash" style="position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 999;background-color: rgba(0,0,0,.3);">
+        <div style="height:20%">
+        </div>
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>
+        <div style="margin-left: auto;margin-right: auto;text-align: center;font-size: 32px;font-size: 2rem;">正在加载...</div>
+    </div>
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">我想静静</h1>
+    </header>
+    <nav class="mui-bar mui-bar-tab">
+        <a id='tabbar-select-tab' class="mui-tab-item" href="#tabbar-select">
+            <span class="mui-icon mui-icon-home"></span>
+            <span class="mui-tab-label">精选</span>
+        </a>
+        <a class="mui-tab-item" href="#tabbar-video">
+            <span class="mui-icon mui-icon-camera"></span>
+            <span class="mui-tab-label">视频</span>
+        </a>
+        <a class="mui-tab-item" href="#tabbar-image">
+            <span class="mui-icon mui-icon-image"></span>
+            <span class="mui-tab-label">图片</span>
+        </a>
+    </nav>
+    <div id="middlePopover" class="mui-popover" style="width:256px;height:200px;">
+        <div class="mui-popover-arrow"></div>
+        <div class="mui-scroll-wrapper" id="video">
+            <div style="height:44px">
+                <h1 class="mui-title" id='video_title'></h1></div>
+            <video id="video_tag" class="video-js vjs-default-skin" controls width="256" height="144" preload="auto" autoplay="true" data-setup='{}'>
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+        </div>
+    </div>
+    <div class="mui-content">
+        <div id="tabbar-select" class="mui-control-content">
+            <section id="cd-timeline" class="cd-container">
+                <template v-for="item in items">
+                    <div class="cd-timeline-block">
+                        <div class="cd-timeline-img cd-picture"></div>
+                        <div class="cd-timeline-content">
+                            <h2>{{ item.name }}</h2>
+                            <img src="{{ item.img }}">
+                            <p>{{ item.text }}</p>
+                            <span class="cd-date">{{ item.date }}</span>
+                        </div>
+                    </div>
+                </template>
+            </section>
+        </div>
+        <div id="tabbar-video" class="mui-control-content">
+            <ul id="list" class="mui-table-view mui-table-view-chevron">
+                <template v-for="item in items">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">{{ item.name }}</a>
+                        <span v-if="item.isnew" class="mui-badge mui-badge-danger">{{ item.list.length }}</span>
+                        <ul class="mui-table-view mui-table-view-chevron">
+                            <template v-for="m in item.list">
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right" href="#middlePopover" data-href="{{ m.href }}">{{ m.time }}</a>
+                                </li>
+                            </template>
+                        </ul>
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div id="tabbar-image" class="mui-control-content">
+            <h5 style="background-color:#efeff4">点击放大，双指缩放，左右滑动</h5>
+            <ul class="mui-table-view" id='v'>
+                <template v-for="item in items">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">{{ item.name }}</a>
+                        <span v-if="item.isnew" class="mui-badge mui-badge-danger">{{ item.list.length }}</span>
+                        <div class="mui-collapse-content">
+                            <ul class="mui-table-view mui-grid-view">
+                                <template v-for="m in item.list">
+                                    <li class="mui-table-view-cell mui-media mui-col-xs-3">
+                                        <p><img class="mui-media-object" src="404.jpg" :lsrc='m.thu' data-preview-src="{{ m.ori }}" data-preview-group="{{ item.group }}"></p>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <script src="p1607.js"></script>
+    <script src="p1608.js"></script>
+    <script src="p1609.js"></script>
+    <script src="p1610.js"></script>
+    <script src="p1611.js"></script>
+    <script src="p1612.js"></script>
+    <script src="v1607.js"></script>
+    <script src="v1608.js"></script>
+    <script src="v1609.js"></script>
+    <script src="v1610.js"></script>
+    <script src="v1611.js"></script>
+    <script src="v1612.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/mui.zoom.js"></script>
+    <script src="js/mui.previewimage.js"></script>
+    <script type="text/javascript">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return '';
+    }
+
+    function bytesToSize(bytes) {
+        bytes = parseInt(bytes);
+        if (bytes === 0) return '0 B';
+        var k = 1000, // or 1024
+            sizes = ['B', 'KB', 'MB'],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+    window.HELP_IMPROVE_VIDEOJS = false;
+    var tdata = [{
+        name: '抬头',
+        img: '100093-c5cefd436d776a75e385e931f524214807cb9b5b2c4ab9ba3c57367e36c4e4c4',
+        text: '这个小动作，是你成长的一大步。',
+        date: '90天'
+    }, {
+        name: '满月',
+        img: '93828-1bdb2a6947ac6db18424540ed75f4cb09f5f838642bb187629e3a3fba5f86608',
+        text: '愿你美梦成真。',
+        date: '26天'
+    }, {
+        name: '回家',
+        img: '114255-996bc435bbc4493379e5ac11d9bc01dc5313e2dd45edb72a8000b5d9d62eac69',
+        text: '曾经，你还是瘦瘦的，有着细细长长的胳膊和腿。',
+        date: '15天'
+    }, {
+        name: '出生',
+        img: '88301-c7ff19e5670a1b74e1f2300cdd0cfab52a954ea96ffe6d9c3ad1cca11f211613',
+        text: '在一个下着淅淅沥沥小雨的清晨，你“毫无征兆”的降临了。',
+        date: '1天'
+    }, ];
+    var vdata = [{
+        name: '新增',
+        isnew: true,
+        list: [{
+            href: '14100667-0d7760ce755e0d4ab998402f763f65e65964016b7f89ed80ed0f816f1a2850f2',
+            time: '2016.01.02 20:15'
+        }, ]
+    }, v1612, v1611, v1610, v1609, v1608, v1607, ];
+    var pdata = [{
+        name: '新增',
+        group: 999,
+        isnew: true,
+        list: [{
+            ori: "316879-89be44902049d41a4dae9a892fd4795fef0075dc1d6c86159e408a6fc895a759",
+            thu: "3442-3be3aade9e515bec3057905ac82e0827ce4afa1952fe93ea6e54f757d0ee3cdc"
+        }, {
+            ori: "273198-0d20b55b7f80fc1a07257a41ef174d87b8ccaf5bce95406b40e346374ab34577",
+            thu: "2849-f804039c27ec0e50b2f8740e38151c25dcc9a969000c1f03fa4e880b4fdc6bd6"
+        }, {
+            ori: "1283580-7a2dfefbda004604a934a02f7139159d0851f0d14f6bb7b19062adfc3958f7ff",
+            thu: "3187-dd96494ddcf84e6d45baf408a7021b11335c3f9df39caa9041a6b37215f08af4"
+        }, {
+            ori: "1131246-6ca88e22aaacbf15fef295856532495fa1071b4566962446278fbeec3258e7b1",
+            thu: "3059-a0e1c1969d79bbbb3223817d02e54494166a429953668e62788d802d30409c48"
+        }, {
+            ori: "1124098-3a5b5a8ad228597a904306d1a19607e1a32e891b04d499f9437d6b5a7f8f3b4c",
+            thu: "3076-6f2cdf0a907502e3146454694fb5d3825dd4057d7dea1f29e855899819d74214"
+        }, {
+            ori: "1261177-dd34e5de9dba07f46265d6dc66cbab421d5f8186f9de9bedb939ea7368391312",
+            thu: "3116-74128c8fca9d8ea7dfad9d446898f87682d09ade249b9bfff5102ca861b33ef5"
+        }, {
+            ori: "1249529-cd6d55c64bca68ccf135645f628253523d7530ef4a46806811ec6eaa98fef8c4",
+            thu: "3144-02f519d5a71fc9c51952f10add206568a5463c5a222b1a574c493329239a1030"
+        }, ]
+    }, p1612, p1611, p1610, p1609, p1608, p1607];
+    </script>
+    <script src="//assest.meikemeiyin.cn/js/video.min.js"></script>
+    <script>
+    window.onload = function() {
+        var elem = document.getElementById('splash');
+        elem.parentNode.removeChild(elem);
+        document.getElementById('tabbar-select-tab').classList.add('mui-active');
+        document.getElementById('tabbar-select').classList.add('mui-active');
+        videojs.options.flash.swf = "//assest.meikemeiyin.cn/js/video-js.swf";
+        var player = videojs('video_tag', {
+            controls: true,
+            preload: 'auto',
+            width: 256,
+            height: 144,
+            autoplay: true
+        });
+        mui.init({
+            keyEventBind: {
+                backbutton: false
+            },
+            beforeback: function() {
+                if (mui.previewImage().isShown()) {
+                    mui.previewImage().close();
+                    return false;
+                }
+                return true;
+            }
+        });
+        mui('body').on('hidden', '.mui-popover', function(e) {});
+        mui('body').on('shown', '.mui-popover', function(e) {
+            id = window.videoid;
+            type = window.videotype + ' ' + bytesToSize(id.split('-'));
+            if (id == null) {
+                return;
+            }
+            node = document.getElementById("video_title");
+            node.innerHTML = type;
+            player.src(id, "video/mp4");
+        });
+        var old_back = mui.back;
+        mui.back = function() {
+            var btn = ["确定", "取消"];
+            mui.confirm('确认关闭当前窗口？', '我想静静', btn, function(e) {
+                if (e.index == 0) {
+                    old_back();
+                }
+            });
+        }
+        var w = new Vue({
+            el: '#cd-timeline',
+            data: {
+                items: tdata
+            }
+        });
+        var w = new Vue({
+            el: '#list',
+            ready: function() {
+                mui('#list').on('tap', 'a', function() {
+                    window.videoid = this.getAttribute('data-href');
+                    window.videotype = this.innerText;
+                });
+            },
+            data: {
+                items: vdata
+            }
+        });
+        var v = new Vue({
+            el: '#v',
+            ready: function() {
+                mui.previewImage({
+                    sliderdestroy: true
+                });
+                mui('#v').on('tap', 'a', function() {
+                    var l = this.parentNode;
+                    arr = l.getElementsByTagName('img');
+                    for (var i = 0; i < arr.length; i++) {
+                        node = arr[i];
+                        lsrc = node.getAttribute('lsrc');
+                        if (node.src.indexOf(lsrc) < 0) {
+                            node.src = lsrc;
+                        }
+                    }
+                });
+            },
+            data: {
+                items: pdata
+            }
+        });
+    };
+    </script>
+</body>
+
+</html>
