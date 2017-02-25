@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import re, hashlib
+import re
+import hashlib
 import glob
 from PIL import Image
 import oss2
@@ -23,7 +24,7 @@ def main():
 
     if len(vlist) > 0:
         video(vlist, bucket)
-    replace(bucket)
+    #replace(bucket)
 
 
 def replace(bucket):
@@ -36,9 +37,10 @@ def replace(bucket):
         for f in flist:
             num = f.split('-')[0]
             num = int(num)
-            if num > 200000:
+            if num > 200 * 1000:
                 bucket.get_object_to_file(f, r'./pic/tmp.jpg')
                 cnew = resize(r'./pic/tmp.jpg', bucket, 1000)
+                print f, cnew
                 content = content.replace(f, cnew)
                 open(m, 'w').write(content)
                 bucket.delete_object(f)
@@ -46,7 +48,7 @@ def replace(bucket):
 
 def resize(name, bucket, r=100.0):
     im = Image.open(name)
-    lam = int(round(min(im.width / r, im.height / r)))
+    lam = int(round(max(im.width / r, im.height / r)))
     if lam == 0:
         lam = 1
     im = im.resize((im.width / lam, im.height / lam), Image.BILINEAR)
