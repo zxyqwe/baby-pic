@@ -24,7 +24,10 @@ def main():
 
     if len(vlist) > 0:
         video(vlist, bucket)
-    #replace(bucket)
+        pass
+
+    # replace(bucket)
+    js(bucket)
 
 
 def replace(bucket):
@@ -101,9 +104,12 @@ def test(bucket):
                       headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
 
 
-def js(bucket, plist):
+def js(bucket):
+    plist = list(glob.glob(r'./js/p*.js'))
     for m in plist:
-        bucket.put_object(m, open(m).read())
+        key = m.split('/')[-1]
+        print key, m
+        bucket.put_object(key, open(m).read())
 
 
 if __name__ == '__main__':
