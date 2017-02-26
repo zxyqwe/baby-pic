@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding:utf-8 -*-
 
 import re
 import hashlib
@@ -7,11 +8,25 @@ from PIL import Image
 import oss2
 from config import ACCESS, KEY, BNAME, ENDPOINT
 import subprocess
+from argparse import ArgumentParser
+from gooey import Gooey
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
+@Gooey(language='chinese')
 def main():
     auth = oss2.Auth(ACCESS, KEY)
     bucket = oss2.Bucket(auth, ENDPOINT, BNAME)
+
+    arg = ArgumentParser(description='baby')
+    arg.add_argument('-i', '--index', default=False, help='upload index', required=False, action='store_true')
+    arg.add_argument('-r', '--replace', default=False, action='store_true', help='replace js', required=False)
+    arg.add_argument('-j', '--js', default=False, action='store_true', help='upload js', required=False)
+    arg.add_argument('-n', '--notuse', default=11, help='not use', required=True, action='count')
+    arg = arg.parse_args()
 
     vlist = list(glob.glob(r'./video/*.mp4'))
     plist = list(glob.glob(r'./pic/*.JPG'))
@@ -25,11 +40,13 @@ def main():
 
     if len(vlist) > 0:
         video(vlist, bucket)
-        pass
 
-    replace(bucket)
-    js(bucket)
-    index(bucket)
+    if arg.replace:
+        replace(bucket)
+    if arg.js:
+        js(bucket)
+    if arg.index:
+        index(bucket)
 
 
 def replace(bucket):
