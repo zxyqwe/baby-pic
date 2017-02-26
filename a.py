@@ -6,6 +6,7 @@ import glob
 from PIL import Image
 import oss2
 from config import ACCESS, KEY, BNAME, ENDPOINT
+import subprocess
 
 
 def main():
@@ -13,7 +14,7 @@ def main():
     bucket = oss2.Bucket(auth, ENDPOINT, BNAME)
 
     vlist = list(glob.glob(r'./video/*.mp4'))
-    plist = list(glob.glob(r'./pic/*.jpg'))
+    plist = list(glob.glob(r'./pic/*.JPG'))
     vlist.reverse()
     plist.reverse()
 
@@ -26,8 +27,9 @@ def main():
         video(vlist, bucket)
         pass
 
-    # replace(bucket)
+    replace(bucket)
     js(bucket)
+    index(bucket)
 
 
 def replace(bucket):
@@ -94,6 +96,9 @@ def video(b, bucket):
 
 
 def index(bucket):
+    out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp html', shell=True,
+                                  stderr=subprocess.STDOUT)
+    print out
     bucket.put_object('index.html', open('html/index.html').read(),
                       headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
     bucket.batch_delete_objects(['test.html'])  # ,'video.html'
