@@ -42,7 +42,7 @@ def replace(bucket):
         for f in flist:
             num = f.split('-')[0]
             num = int(num)
-            if num > 200 * 1000:
+            if num > 400 * 1000:
                 bucket.get_object_to_file(f, r'./pic/tmp.jpg')
                 cnew = resize(r'./pic/tmp.jpg', bucket, 1000)
                 print f, cnew
