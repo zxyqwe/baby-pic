@@ -25,6 +25,7 @@ def main():
     arg.add_argument('-i', '--index', default=False, help='upload index', required=False, action='store_true')
     arg.add_argument('-r', '--replace', default=False, action='store_true', help='replace js', required=False)
     arg.add_argument('-j', '--js', default=False, action='store_true', help='upload js', required=False)
+    arg.add_argument('-t', '--test', default=False, action='store_true', help='upload test', required=False)
     arg.add_argument('-n', '--notuse', default=11, help='not use', required=True, action='count')
     arg = arg.parse_args()
 
@@ -47,6 +48,8 @@ def main():
         js(bucket)
     if arg.index:
         index(bucket)
+    if arg.test:
+        test(bucket)
 
 
 def replace(bucket):

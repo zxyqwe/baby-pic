@@ -434,6 +434,10 @@ Main components
             <span class="mui-icon mui-icon-image"></span>
             <span class="mui-tab-label">图片</span>
         </a>
+        <a class="mui-tab-item" href="#tabbar-more">
+            <span class="mui-icon mui-icon-more"></span>
+            <span class="mui-tab-label">更多</span>
+        </a>
     </nav>
     <div id="middlePopover" class="mui-popover" style="width:256px;height:200px;">
         <div class="mui-popover-arrow"></div>
@@ -496,6 +500,16 @@ Main components
                         </div>
                     </li>
                 </template>
+            </ul>
+        </div>
+        <div id="tabbar-more" class="mui-control-content">
+            <ul class="mui-table-view mui-grid-view mui-grid-9">
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <a href="#">
+                        <span class="mui-icon mui-icon-info"></span>
+                        <div class="mui-media-body">关于</div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -699,15 +713,6 @@ Main components
             node.innerHTML = type;
             player.src(id, "video/mp4");
         });
-        var old_back = mui.back;
-        mui.back = function() {
-            var btn = ["确定", "取消"];
-            mui.confirm('确认关闭当前窗口？', '我想静静', btn, function(e) {
-                if (e.index == 0) {
-                    old_back();
-                }
-            });
-        }
         var w = new Vue({
             el: '#cd-timeline',
             data: {
@@ -748,6 +753,7 @@ Main components
                 items: pdata
             }
         });
+
     };
     </script>
 </body>
