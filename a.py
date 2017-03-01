@@ -121,6 +121,11 @@ def index(bucket):
     print out
     bucket.put_object('index.html', open('html/index.html').read(),
                       headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
+    out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp g1', shell=True,
+                                  stderr=subprocess.STDOUT)
+    print out
+    bucket.put_object('2048.html', open('html/2048.html').read(),
+                      headers={'Cache-Control': 'public'})
     bucket.batch_delete_objects(['test.html'])  # ,'video.html'
 
 
