@@ -510,6 +510,12 @@ Main components
                         <div class="mui-media-body">关于</div>
                     </a>
                 </li>
+                <li id='g2048' class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <a href="#">
+                        <span class="mui-icon mui-icon-star"></span>
+                        <div class="mui-media-body">2048</div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -752,6 +758,12 @@ Main components
             data: {
                 items: pdata
             }
+        });
+        mui('#g2048').on('tap', 'a', function() {
+            mui.openWindow({
+                url: '2048.html',
+                id: 'g2048'
+            });
         });
 
     };
