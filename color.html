@@ -8,9 +8,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style type="text/css">
-
-        /*@import url(fonts/clear-sans.css);*/
-        
         html,
         body {
             margin: 0;
@@ -23,7 +20,7 @@
             font-size: 18px;
         }
         
-        .game-container {
+        .container {
             margin: 5px auto;
             padding: 15px;
             cursor: default;
@@ -34,33 +31,21 @@
             -ms-user-select: none;
             -ms-touch-action: none;
             touch-action: none;
-            background: #bbada0;
             border-radius: 6px;
             width: 90%;
-            height: 70%;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
         
+        .game-container {
+            background: #000;
+            height: 70%;
+        }
+        
         .choose-container {
-            margin: 5px auto;
-            padding: 15px;
-            cursor: default;
-            -webkit-touch-callout: none;
-            -ms-touch-callout: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -ms-touch-action: none;
-            touch-action: none;
             background: #bbada0;
-            border-radius: 6px;
-            width: 90%;
             height: 25%;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
         }
         
         .grid-row {
@@ -81,6 +66,10 @@
             margin-right: 4px;
             float: left;
             border-radius: 3px;
+            background: rgba(0, 0, 0, 0);
+        }
+        
+        .grid-cell-color {
             background: rgba(238, 228, 218, 0.35);
         }
         
@@ -91,17 +80,14 @@
 </head>
 
 <body id="mainC">
-    <div class="game-container">
+    <div class="container game-container">
         <div v-for="x in grid" class="grid-row">
-            <div v-for="y in x" class="grid-cell" v-bind:style="{width:findSize + 'px', height: findSize + 'px'}"></div>
+            <div v-for="y in x" v-bind:class="{'grid-cell-color':y.wait}" class="grid-cell" data-value="{{y.a}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
         </div>
     </div>
-    <div class="choose-container">
+    <div class="container choose-container">
         <div class="grid-row">
-            <div class="grid-cell" v-bind:style="{width:findSize + 'px', height: findSize + 'px'}"></div>
-        </div>
-        <div class="grid-row">
-            <div class="grid-cell" v-bind:style="{width:findSize + 'px', height: findSize + 'px'}"></div>
+            <div v-for="y in choice" class="grid-cell" data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
         </div>
     </div>
 </body>
@@ -112,10 +98,15 @@
         var Game = new Vue({
             el: '#mainC',
             data: {
+                base: 7,
                 findSize: 23,
                 sizex: 4,
                 sizey: 3,
                 grid: [],
+                choice: [{
+                    a: 'rgba(238, 228, 218, 0.35)',
+                    b: 'rgba(238, 228, 218, 0.35)'
+                }]
             },
 
             created: function () {
@@ -132,6 +123,8 @@
                 init: function () {
 
                     this.initArrayGrid(this.sizex, this.sizey);
+                    this.initColor(this.sizex, this.sizey - 1);
+                    this.delGrid();
                 },
                 initArrayGrid: function (sizex, sizey) {
                     var arr = [];
@@ -140,13 +133,33 @@
                         arr[x] = [];
                         for (var y = 0; y < sizex; y++) {
                             arr[x][y] = {
-                                a: 0
+                                a: '',
+                                b: '',
+                                wait: false
                             };
                         }
                     }
 
                     this.grid = arr;
                 },
+                initColor: function (y, x) {
+                    y = y << 0;
+                    this.grid[0][0].a = this.getRandomColor(1);
+                    this.grid[0][y].a = this.getRandomColor(1);
+                    this.grid[x][0].a = this.getRandomColor(1);
+                    this.grid[x][y].a = this.getRandomColor(1);
+                },
+                get255: function () {
+                    return Math.random() * 255 << 0;
+                },
+                getRandomColor: function (a) {
+                    return 'rgba(' + this.get255() + ',' + this.get255() + ',' + this.get255() + ',' +
+                        a + ')';
+                },
+                delGrid: function (num) {
+                    this.grid[2][2].wait = true;
+                },
+                judgeColor: function (y, x) {},
                 getWindowSize: function () {
                     var w = window,
                         d = document,
@@ -158,7 +171,7 @@
                     y *= 0.7;
                     x -= 30;
                     y -= 30;
-                    this.findSize = Math.min(x, y) / 7 - 4;
+                    this.findSize = Math.min(x, y) / this.base - 4;
                     this.sizex = x / (this.findSize + 4) - 1;
                     this.sizey = y / (this.findSize + 4) - 1;
                     x < y ? this.sizex++ : this.sizey++;
