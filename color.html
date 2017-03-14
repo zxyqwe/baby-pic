@@ -70,7 +70,7 @@
         }
         
         .grid-cell-color {
-            background: rgba(238, 228, 218, 0.35);
+            border: 2px solid #bbada0;
         }
         
         .grid-cell:last-child {
@@ -82,7 +82,7 @@
 <body id="mainC">
     <div class="container game-container">
         <div v-for="x in grid" class="grid-row">
-            <div v-for="y in x" v-bind:class="{'grid-cell-color':y.wait}" class="grid-cell" data-value="{{y.a}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
+            <div v-for="y in x" v-bind:class="{'grid-cell-color':y.wait}" class="grid-cell" data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
         </div>
     </div>
     <div class="container choose-container">
@@ -94,8 +94,7 @@
 <script src="http://baby.zxyqwe.com/js/vue.min.js"></script>
 <script>
     window.onload = function () {
-
-        var Game = new Vue({
+        window.Game = new Vue({
             el: '#mainC',
             data: {
                 base: 7,
@@ -104,26 +103,19 @@
                 sizey: 3,
                 grid: [],
                 choice: [{
-                    a: 'rgba(238, 228, 218, 0.35)',
-                    b: 'rgba(238, 228, 218, 0.35)'
+                    a: '#bbada0',
+                    b: '#bbada0'
                 }]
             },
-
-            created: function () {
-                this.getWindowSize();
-            },
             ready: function () {
-
                 this.init();
-
             },
             computed: {},
             methods: {
-
                 init: function () {
-
+                    this.getWindowSize();
                     this.initArrayGrid(this.sizex, this.sizey);
-                    this.initColor(this.sizex, this.sizey - 1);
+                    this.initColor(this.sizex - 1, this.sizey - 1);
                     this.delGrid();
                 },
                 initArrayGrid: function (sizex, sizey) {
@@ -134,7 +126,7 @@
                         for (var y = 0; y < sizex; y++) {
                             arr[x][y] = {
                                 a: '',
-                                b: '',
+                                b: x + ',' + y,
                                 wait: false
                             };
                         }
@@ -143,18 +135,13 @@
                     this.grid = arr;
                 },
                 initColor: function (y, x) {
-                    y = y << 0;
                     this.grid[0][0].a = this.getRandomColor(1);
                     this.grid[0][y].a = this.getRandomColor(1);
                     this.grid[x][0].a = this.getRandomColor(1);
                     this.grid[x][y].a = this.getRandomColor(1);
                 },
-                get255: function () {
-                    return Math.random() * 255 << 0;
-                },
                 getRandomColor: function (a) {
-                    return 'rgba(' + this.get255() + ',' + this.get255() + ',' + this.get255() + ',' +
-                        a + ')';
+                    return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
                 },
                 delGrid: function (num) {
                     this.grid[2][2].wait = true;
@@ -169,15 +156,19 @@
                         y = w.innerHeight || e.clientHeight || g.clientHeight;
                     x *= 0.9;
                     y *= 0.7;
-                    x -= 30;
-                    y -= 30;
+                    x -= 26;
+                    y -= 26;
                     this.findSize = Math.min(x, y) / this.base - 4;
-                    this.sizex = x / (this.findSize + 4) - 1;
-                    this.sizey = y / (this.findSize + 4) - 1;
-                    x < y ? this.sizex++ : this.sizey++;
+                    this.sizex = x / (this.findSize + 4);
+                    this.sizey = y / (this.findSize + 4);
+                    this.sizex = this.sizex << 0;
+                    this.sizey = this.sizey << 0;
                 }
             }
         });
+    };
+    window.onresize = function () {
+        Game.init();
     };
 </script>
 
