@@ -196,10 +196,10 @@
                 init: function () {
                     this.getWindowSize();
                     this.initArrayGrid(this.sizex, this.sizey);
+                    this.initColor(this.sizex - 1, this.sizey - 1);
                     m31 = (this.sizex * this.sizey - 4) / 3 << 0;
                     myy = Math.min(2 * this.sizex, m31);
                     this.delGrid(myy);
-                    this.initColor(this.sizex - 1, this.sizey - 1);
                 },
                 initArrayGrid: function (sizex, sizey) {
                     var arr = [];
@@ -240,14 +240,31 @@
                         ) continue;
                         this.grid[a['x']][a['y']].wait = true;
                         jc = this.judgeColor(a['x'], a['y']);
+                        this.grid[a['x']][a['y']].a = jc;
                         this.choice.push({
                             a: jc,
                             b: jc
                         });
                     };
                 },
-                judgeColor: function (y, x) {
-                    return this.getRandomColor();
+                comColor: function (a, b, i, n) {
+                    ar = parseInt(a.substr(1, 2), 16);
+                    ag = parseInt(a.substr(3, 2), 16);
+                    ab = parseInt(a.substr(5, 2), 16);
+                    br = parseInt(b.substr(1, 2), 16);
+                    bg = parseInt(b.substr(3, 2), 16);
+                    bb = parseInt(b.substr(5, 2), 16);
+                    ar-=(ar-br)*i/n>>0;
+                    ag-=(ag-bg)*i/n>>0;
+                    ab-=(ab-bb)*i/n>>0;
+                    return '#'+ar.toString(16)+ag.toString(16)+ab.toString(16);
+                },
+                judgeColor: function (x, y) {
+                    x0 = this.comColor(this.grid[0][0].a, this.grid[this.sizey - 1][0].a, x, this.sizey);
+                    xy = this.comColor(this.grid[0][this.sizex - 1].a, this.grid[this.sizey - 1][this.sizex -
+                        1
+                    ].a, x, this.sizey);
+                    return this.comColor(x0, xy, y, this.sizex);
                 },
                 getWindowSize: function () {
                     var w = window,
