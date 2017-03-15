@@ -70,7 +70,7 @@
         }
         
         .grid-cell-color {
-            border: 2px solid #bbada0;
+            background: rgba(255, 255, 255, 0.2);
         }
         
         .grid-cell:last-child {
@@ -93,6 +93,90 @@
 </body>
 <script src="http://baby.zxyqwe.com/js/vue.min.js"></script>
 <script>
+    var addG = (function (w, undefined) {
+        var buf = [],
+            result = [],
+            sizex = 0,
+            sizey = 0;
+        var init = function (x, y) {
+            sizex = x - 1;
+            sizey = y - 1;
+            buf = [];
+            result = [{
+                x: 0,
+                y: 0
+            }, {
+                x: 0,
+                y: sizey
+            }, {
+                x: sizex,
+                y: 0
+            }, {
+                x: sizex,
+                y: sizey
+            }];
+        };
+        var ran = function (x) {
+            return Math.random() * x << 0;
+        };
+        var addBuf = function (x, y) {
+            if (x < 0 || x > sizex || y < 0 || y > sizey)
+                return;
+            buf.push({
+                x: x,
+                y: y
+            });
+        };
+        var addRes = function (x, y) {
+            if (x < 0 || x > sizex || y < 0 || y > sizey)
+                return;
+            result.push({
+                x: x,
+                y: y
+            });
+            buf = unique(buf);
+        };
+        var mBuf = function (x0, y0) {
+            addBuf(x0 - 1, y0);
+            addBuf(x0 + 1, y0);
+            addBuf(x0, y0 - 1);
+            addBuf(x0, y0 + 1);
+            result = unique(result);
+        };
+        var unique = function (arr) {
+            var result = [],
+                hash = {};
+            for (var i = 0, elem;
+                (elem = arr[i]) != null; i++) {
+                helem = 'x' + elem['x'] + 'y' + elem['y'];
+                if (!hash[helem]) {
+                    result.push(elem);
+                    hash[helem] = true;
+                }
+            }
+            return result;
+        }
+        var compute = function (n) {
+            x0 = ran(sizex);
+            y0 = ran(sizey);
+            addRes(x0, y0);
+            mBuf(x0, y0);
+            while (n + 4 > result.length) {
+                i = Math.random() * buf.length << 0;
+                x = buf[i];
+                buf.splice(i, 1);
+                x0 = x['x'];
+                y0 = x['y'];
+                addRes(x0, y0);
+                mBuf(x0, y0);
+            }
+            return result;
+        };
+        return {
+            ini: init,
+            com: compute,
+        };
+    })(window);
     window.onload = function () {
         window.Game = new Vue({
             el: '#mainC',
@@ -102,10 +186,7 @@
                 sizex: 4,
                 sizey: 3,
                 grid: [],
-                choice: [{
-                    a: '#bbada0',
-                    b: '#bbada0'
-                }]
+                choice: []
             },
             ready: function () {
                 this.init();
@@ -115,8 +196,10 @@
                 init: function () {
                     this.getWindowSize();
                     this.initArrayGrid(this.sizex, this.sizey);
+                    m31 = (this.sizex * this.sizey - 4) / 3 << 0;
+                    myy = Math.min(2 * this.sizex, m31);
+                    this.delGrid(myy);
                     this.initColor(this.sizex - 1, this.sizey - 1);
-                    this.delGrid();
                 },
                 initArrayGrid: function (sizex, sizey) {
                     var arr = [];
@@ -133,20 +216,39 @@
                     }
 
                     this.grid = arr;
+                    this.choice = [];
                 },
                 initColor: function (y, x) {
-                    this.grid[0][0].a = this.getRandomColor(1);
-                    this.grid[0][y].a = this.getRandomColor(1);
-                    this.grid[x][0].a = this.getRandomColor(1);
-                    this.grid[x][y].a = this.getRandomColor(1);
+                    this.grid[0][0].a = this.getRandomColor();
+                    this.grid[0][y].a = this.getRandomColor();
+                    this.grid[x][0].a = this.getRandomColor();
+                    this.grid[x][y].a = this.getRandomColor();
                 },
-                getRandomColor: function (a) {
+                getRandomColor: function () {
                     return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
                 },
                 delGrid: function (num) {
-                    this.grid[2][2].wait = true;
+                    addG.ini(this.sizey, this.sizex);
+                    arr = addG.com(num);
+                    for (am in arr) {
+                        a = arr[am];
+                        if (
+                            (a['x'] == 0 && a['y'] == 0) ||
+                            (a['x'] == 0 && a['y'] == this.sizex - 1) ||
+                            (a['x'] == this.sizey - 1 && a['y'] == 0) ||
+                            (a['x'] == this.sizey - 1 && a['y'] == this.sizex - 1)
+                        ) continue;
+                        this.grid[a['x']][a['y']].wait = true;
+                        jc = this.judgeColor(a['x'], a['y']);
+                        this.choice.push({
+                            a: jc,
+                            b: jc
+                        });
+                    };
                 },
-                judgeColor: function (y, x) {},
+                judgeColor: function (y, x) {
+                    return this.getRandomColor();
+                },
                 getWindowSize: function () {
                     var w = window,
                         d = document,
