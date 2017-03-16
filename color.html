@@ -40,12 +40,17 @@
         
         .game-container {
             background: #000;
-            height: 70%;
+            height: 55%;
         }
         
         .choose-container {
             background: #bbada0;
-            height: 25%;
+            height: 20%;
+        }
+        
+        .header-container {
+            background: #bbada0;
+            height: 20%;
         }
         
         .grid-row {
@@ -80,6 +85,8 @@
 </head>
 
 <body id="mainC">
+    <div class="container header-container">
+    </div>
     <div class="container game-container">
         <div v-for="x in grid" class="grid-row">
             <div v-for="y in x" v-bind:class="{'grid-cell-color':y.wait}" class="grid-cell" data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
@@ -338,7 +345,7 @@
                         x = w.innerWidth || e.clientWidth || g.clientWidth,
                         y = w.innerHeight || e.clientHeight || g.clientHeight;
                     x *= 0.9;
-                    y *= 0.7;
+                    y *= 0.55;
                     x -= 26;
                     y -= 26;
                     this.findSize = Math.min(x, y) / this.base - 4;
