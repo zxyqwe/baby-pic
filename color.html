@@ -78,6 +78,10 @@
             background: rgba(255, 255, 255, 0.2);
         }
         
+        .grid-cell-click {
+            box-shadow: 0px 0px 30px white inset;
+        }
+        
         .grid-cell:last-child {
             margin-right: 0;
         }
@@ -89,12 +93,14 @@
     </div>
     <div class="container game-container">
         <div v-for="x in grid" class="grid-row">
-            <div v-for="y in x" v-bind:class="{'grid-cell-color':y.wait}" class="grid-cell" data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
+            <div v-on:click="clickgrid" v-for="y in x" v-bind:class="{'grid-cell-color':y.wait, 'grid-cell-click':y.cli}" class="grid-cell"
+                data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
         </div>
     </div>
     <div class="container choose-container">
         <div class="grid-row">
-            <div v-for="y in choice" class="grid-cell" data-value="{{y.b}}" v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
+            <div v-on:click="clickchoice" v-for="y in choice" v-bind:class="{'grid-cell-click':y.cli}" class="grid-cell" data-value="{{y.a}}"
+                v-bind:style="{width:findSize + 'px', height: findSize + 'px', background: y.a}"></div>
         </div>
     </div>
 </body>
@@ -155,7 +161,7 @@
                 hash = {};
             for (var i = 0, elem;
                 (elem = arr[i]) != null; i++) {
-                helem = 'x' + elem['x'] + 'y' + elem['y'];
+                helem = 'x' + elem.x + 'y' + elem.y;
                 if (!hash[helem]) {
                     result.push(elem);
                     hash[helem] = true;
@@ -172,8 +178,8 @@
                 i = Math.random() * buf.length << 0;
                 x = buf[i];
                 buf.splice(i, 1);
-                x0 = x['x'];
-                y0 = x['y'];
+                x0 = x.x;
+                y0 = x.y;
                 addRes(x0, y0);
                 mBuf(x0, y0);
             }
@@ -193,7 +199,8 @@
                 sizex: 4,
                 sizey: 3,
                 grid: [],
-                choice: []
+                choice: [],
+                lastclick: undefined,
             },
             ready: function () {
                 this.init();
@@ -217,7 +224,10 @@
                             arr[x][y] = {
                                 a: '',
                                 b: x + ',' + y,
-                                wait: false
+                                x: x,
+                                y: y,
+                                wait: false,
+                                cli: false
                             };
                         }
                     }
@@ -240,17 +250,16 @@
                     for (am in arr) {
                         a = arr[am];
                         if (
-                            (a['x'] == 0 && a['y'] == 0) ||
-                            (a['x'] == 0 && a['y'] == this.sizex - 1) ||
-                            (a['x'] == this.sizey - 1 && a['y'] == 0) ||
-                            (a['x'] == this.sizey - 1 && a['y'] == this.sizex - 1)
+                            (a.x == 0 && a.y == 0) ||
+                            (a.x == 0 && a.y == this.sizex - 1) ||
+                            (a.x == this.sizey - 1 && a.y == 0) ||
+                            (a.x == this.sizey - 1 && a.y == this.sizex - 1)
                         ) continue;
-                        this.grid[a['x']][a['y']].wait = true;
-                        jc = this.judgeColor(a['x'], a['y']);
-                        this.grid[a['x']][a['y']].a = jc;
+                        this.grid[a.x][a.y].wait = true;
+                        jc = this.judgeColor(a.x, a.y);
                         this.choice.push({
                             a: jc,
-                            b: jc
+                            cli: false
                         });
                     };
                 },
@@ -336,6 +345,93 @@
                         1
                     ].a, x, this.sizey);
                     return this.comColor(x0, xy, y, this.sizex);
+                },
+                judge: function (g) {
+                    if (g.a === this.judgeColor(g.x, g.y)) {
+                        g.wait = false;
+                        g.a = '';
+                    }
+                },
+                clickgrid: function (event) {
+                    index = event.target.getAttribute('data-value');
+                    index = index.split(',');
+                    x = index[0];
+                    y = index[1];
+                    g = this.grid[x][y];
+                    if (!g.wait)
+                        return;
+                    if (this.lastclick === undefined) {
+                        g.cli = true;
+                        this.lastclick = {
+                            type: 'g',
+                            g: g
+                        };
+                        return;
+                    }
+                    switch (this.lastclick.type) {
+                        case 'g':
+                            g2 = this.lastclick.g;
+                            g2.cli = false;
+                            tmp = g.a;
+                            g.a = g2.a;
+                            g2.a = tmp;
+                            this.judge(g);
+                            this.judge(g2);
+                            this.lastclick = undefined;
+                            return;
+                        case 'c':
+                            g2 = this.lastclick.g;
+                            g2.cli = false;
+                            tmp = g.a;
+                            g.a = g2.a;
+                            g2.a = tmp;
+                            this.judge(g);
+                            if (g2.a === '') {
+                                for (i in this.choice) {
+                                    if (this.choice[i].a === '') {
+                                        this.choice.splice(i, 1);
+                                        break;
+                                    }
+                                }
+                            }
+                            this.lastclick = undefined;
+                            return;
+                    }
+                },
+                clickchoice: function (event) {
+                    var g = undefined,
+                        i;
+                    index = event.target.getAttribute('data-value');
+                    for (i in this.choice) {
+                        if (this.choice[i].a === index) {
+                            g = this.choice[i];
+                            break;
+                        }
+                    }
+                    if (this.lastclick === undefined) {
+                        g.cli = true;
+                        this.lastclick = {
+                            type: 'c',
+                            g: g
+                        };
+                        return;
+                    }
+                    switch (this.lastclick.type) {
+                        case 'g':
+                            g2 = this.lastclick.g;
+                            g2.cli = false;
+                            tmp = g.a;
+                            g.a = g2.a;
+                            g2.a = tmp;
+                            this.judge(g2);
+                            if (g.a === '') this.choice.splice(i, 1);
+                            this.lastclick = undefined;
+                            return;
+                        case 'c':
+                            this.lastclick.g.cli = false;
+                            this.lastclick = undefined;
+                            return;
+                    }
                 },
                 getWindowSize: function () {
                     var w = window,
