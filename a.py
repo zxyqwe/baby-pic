@@ -135,7 +135,7 @@ def test(bucket):
 
 
 def js(bucket):
-    plist = list(glob.glob(r'./js/p*.js'))
+    plist = list(glob.glob(r'./js/*17*.js'))
     for m in plist:
         key = m.split('/')[-1]
         print key, m

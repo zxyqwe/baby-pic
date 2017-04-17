@@ -3,412 +3,412 @@
 
 <head>
     <meta charset="utf-8">
-    <title>我想静静 2017.02.26 08:18:02</title>
+    <title>我想静静 2017.04.16 08:18:02</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/mui.min.css">
-    <link href="//assest.meikemeiyin.cn/css/video-js.min.css" rel="stylesheet">
+    <link href="js/video-js.min.css" rel="stylesheet">
     <!-- If you'd like to support IE8 -->
-    <script src="//assest.meikemeiyin.cn/js/videojs-ie8.min.js"></script>
+    <script src="js/ie8/videojs-ie8.min.js"></script>
     <style type="text/css">
-    .mui-preview-image.mui-fullscreen {
-        position: fixed;
-        z-index: 20;
-        background-color: #000
-    }
-    
-    .mui-preview-header,
-    .mui-preview-footer {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        z-index: 10
-    }
-    
-    .mui-preview-header {
-        height: 44px;
-        top: 0
-    }
-    
-    .mui-preview-footer {
-        height: 50px;
-        bottom: 0
-    }
-    
-    .mui-preview-header .mui-preview-indicator {
-        display: block;
-        line-height: 25px;
-        color: #fff;
-        text-align: center;
-        margin: 15px auto 4;
-        width: 70px;
-        background-color: rgba(0, 0, 0, 0.4);
-        border-radius: 12px;
-        font-size: 16px
-    }
-    
-    .mui-preview-image {
-        display: none;
-        -webkit-animation-duration: .5s;
-        animation-duration: .5s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both
-    }
-    
-    .mui-preview-image.mui-preview-in {
-        -webkit-animation-name: fadeIn;
-        animation-name: fadeIn
-    }
-    
-    .mui-preview-image.mui-preview-out {
-        background: 0;
-        -webkit-animation-name: fadeOut;
-        animation-name: fadeOut
-    }
-    
-    .mui-preview-image.mui-preview-out .mui-preview-header,
-    .mui-preview-image.mui-preview-out .mui-preview-footer {
-        display: none
-    }
-    
-    .mui-zoom-scroller {
-        position: absolute;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        -webkit-backface-visibility: hidden
-    }
-    
-    .mui-zoom {
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d
-    }
-    
-    .mui-slider .mui-slider-group .mui-slider-item img {
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 100%
-    }
-    
-    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
-        width: 100%
-    }
-    
-    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
-        display: inline-table
-    }
-    
-    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
-        display: table-cell;
-        vertical-align: middle
-    }
-    
-    .mui-preview-loading {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: none
-    }
-    
-    .mui-preview-loading.mui-active {
-        display: block
-    }
-    
-    .mui-preview-loading .mui-spinner-white {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-left: -25px;
-        margin-top: -25px;
-        height: 50px;
-        width: 50px
-    }
-    
-    .mui-preview-image img.mui-transitioning {
-        -webkit-transition: -webkit-transform .5s ease, opacity .5s ease;
-        transition: transform .5s ease, opacity .5s ease
-    }
-    
-    @-webkit-keyframes fadeIn {
-        0% {
-            opacity: 0
+        .mui-preview-image.mui-fullscreen {
+            position: fixed;
+            z-index: 20;
+            background-color: #000
         }
-        100% {
-            opacity: 1
+
+        .mui-preview-header,
+        .mui-preview-footer {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            z-index: 10
         }
-    }
-    
-    @keyframes fadeIn {
-        0% {
-            opacity: 0
+
+        .mui-preview-header {
+            height: 44px;
+            top: 0
         }
-        100% {
-            opacity: 1
+
+        .mui-preview-footer {
+            height: 50px;
+            bottom: 0
         }
-    }
-    
-    @-webkit-keyframes fadeOut {
-        0% {
-            opacity: 1
+
+        .mui-preview-header .mui-preview-indicator {
+            display: block;
+            line-height: 25px;
+            color: #fff;
+            text-align: center;
+            margin: 15px auto 4;
+            width: 70px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            font-size: 16px
         }
-        100% {
-            opacity: 0
+
+        .mui-preview-image {
+            display: none;
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both
         }
-    }
-    
-    @keyframes fadeOut {
-        0% {
-            opacity: 1
+
+        .mui-preview-image.mui-preview-in {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn
         }
-        100% {
-            opacity: 0
+
+        .mui-preview-image.mui-preview-out {
+            background: 0;
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut
         }
-    }
-    
-    p img {
-        max-width: 100%;
-        height: auto
-    }
-    /* -------------------------------- 
+
+        .mui-preview-image.mui-preview-out .mui-preview-header,
+        .mui-preview-image.mui-preview-out .mui-preview-footer {
+            display: none
+        }
+
+        .mui-zoom-scroller {
+            position: absolute;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            -webkit-backface-visibility: hidden
+        }
+
+        .mui-zoom {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d
+        }
+
+        .mui-slider .mui-slider-group .mui-slider-item img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%
+        }
+
+        .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+            width: 100%
+        }
+
+        .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+            display: inline-table
+        }
+
+        .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+            display: table-cell;
+            vertical-align: middle
+        }
+
+        .mui-preview-loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none
+        }
+
+        .mui-preview-loading.mui-active {
+            display: block
+        }
+
+        .mui-preview-loading .mui-spinner-white {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -25px;
+            margin-top: -25px;
+            height: 50px;
+            width: 50px
+        }
+
+        .mui-preview-image img.mui-transitioning {
+            -webkit-transition: -webkit-transform .5s ease, opacity .5s ease;
+            transition: transform .5s ease, opacity .5s ease
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeOut {
+            0% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        p img {
+            max-width: 100%;
+            height: auto
+        }
+        /* -------------------------------- 
 
 Modules - reusable parts of our design
 
 -------------------------------- */
-    
-    .cd-container {
-        /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
-        width: 90%;
-        margin: 0 auto;
-    }
-    
-    .cd-container::after {
-        /* clearfix */
-        content: '';
-        display: table;
-        clear: both;
-    }
-    /* -------------------------------- 
+
+        .cd-container {
+            /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .cd-container::after {
+            /* clearfix */
+            content: '';
+            display: table;
+            clear: both;
+        }
+        /* -------------------------------- 
 
 Main components 
 
 -------------------------------- */
-    
-    #cd-timeline {
-        position: relative;
-        padding: 2em 0;
-        margin-top: 2em;
-        margin-bottom: 2em;
-    }
-    
-    #cd-timeline::before {
-        /* this is the vertical line */
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 18px;
-        height: 100%;
-        width: 4px;
-        background: #d7e4ed;
-    }
-    
-    .cd-timeline-block {
-        position: relative;
-        margin: 2em 0;
-    }
-    
-    .cd-timeline-block:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-    
-    .cd-timeline-block:first-child {
-        margin-top: 0;
-    }
-    
-    .cd-timeline-block:last-child {
-        margin-bottom: 0;
-    }
-    
-    .cd-timeline-img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
-    }
-    
-    .cd-timeline-img img {
-        display: block;
-        width: 24px;
-        height: 24px;
-        position: relative;
-        left: 50%;
-        top: 50%;
-        margin-left: -12px;
-        margin-top: -12px;
-    }
-    
-    .cd-timeline-img.cd-picture {
-        background: #75ce66;
-    }
-    
-    .cd-timeline-content {
-        position: relative;
-        margin-left: 60px;
-        background: white;
-        border-radius: 0.25em;
-        padding: 1em;
-        box-shadow: 0 3px 0 #d7e4ed;
-    }
-    
-    .cd-timeline-content:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-    
-    .cd-timeline-content h2 {
-        color: #303e49;
-    }
-    
-    .cd-timeline-content p,
-    .cd-timeline-content .cd-read-more,
-    .cd-timeline-content .cd-date {
-        font-size: 13px;
-        font-size: 0.8125rem;
-    }
-    
-    .cd-timeline-content .cd-read-more,
-    .cd-timeline-content .cd-date {
-        display: inline-block;
-    }
-    
-    .cd-timeline-content p {
-        margin: 1em 0;
-        line-height: 1.6;
-    }
-    
-    .cd-timeline-content img {
-        width: 100%;
-    }
-    
-    .cd-timeline-content .cd-read-more {
-        float: right;
-        padding: .8em 1em;
-        background: #acb7c0;
-        color: white;
-        border-radius: 0.25em;
-    }
-    
-    .no-touch .cd-timeline-content .cd-read-more:hover {
-        background-color: #bac4cb;
-    }
-    
-    .cd-timeline-content .cd-date {
-        float: left;
-        padding: .8em 0;
-        opacity: .7;
-    }
-    
-    .cd-timeline-content::before {
-        content: '';
-        position: absolute;
-        top: 16px;
-        right: 100%;
-        height: 0;
-        width: 0;
-        border: 7px solid transparent;
-        border-right: 7px solid white;
-    }
-    
-    .spinner {
-        margin: 100px auto;
-        width: 90px;
-        height: 90px;
-        position: relative;
-        text-align: center;
-        -webkit-animation: rotate 2.0s infinite linear;
-        animation: rotate 2.0s infinite linear;
-    }
-    
-    .dot1,
-    .dot2 {
-        width: 60%;
-        height: 60%;
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        background-color: #67CF22;
-        border-radius: 100%;
-        -webkit-animation: bounce 2.0s infinite ease-in-out;
-        animation: bounce 2.0s infinite ease-in-out;
-    }
-    
-    .dot2 {
-        top: auto;
-        bottom: 0px;
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
-    }
-    
-    @-webkit-keyframes rotate {
-        100% {
-            -webkit-transform: rotate(360deg)
+
+        #cd-timeline {
+            position: relative;
+            padding: 2em 0;
+            margin-top: 2em;
+            margin-bottom: 2em;
         }
-    }
-    
-    @keyframes rotate {
-        100% {
-            transform: rotate(360deg);
-            -webkit-transform: rotate(360deg)
+
+        #cd-timeline::before {
+            /* this is the vertical line */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 18px;
+            height: 100%;
+            width: 4px;
+            background: #d7e4ed;
         }
-    }
-    
-    @-webkit-keyframes bounce {
-        0%,
-        100% {
-            -webkit-transform: scale(0.0)
+
+        .cd-timeline-block {
+            position: relative;
+            margin: 2em 0;
         }
-        50% {
-            -webkit-transform: scale(1.0)
+
+        .cd-timeline-block:after {
+            content: "";
+            display: table;
+            clear: both;
         }
-    }
-    
-    @keyframes bounce {
-        0%,
-        100% {
-            transform: scale(0.0);
-            -webkit-transform: scale(0.0);
+
+        .cd-timeline-block:first-child {
+            margin-top: 0;
         }
-        50% {
-            transform: scale(1.0);
-            -webkit-transform: scale(1.0);
+
+        .cd-timeline-block:last-child {
+            margin-bottom: 0;
         }
-    }
+
+        .cd-timeline-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .cd-timeline-img img {
+            display: block;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            margin-left: -12px;
+            margin-top: -12px;
+        }
+
+        .cd-timeline-img.cd-picture {
+            background: #75ce66;
+        }
+
+        .cd-timeline-content {
+            position: relative;
+            margin-left: 60px;
+            background: white;
+            border-radius: 0.25em;
+            padding: 1em;
+            box-shadow: 0 3px 0 #d7e4ed;
+        }
+
+        .cd-timeline-content:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .cd-timeline-content h2 {
+            color: #303e49;
+        }
+
+        .cd-timeline-content p,
+        .cd-timeline-content .cd-read-more,
+        .cd-timeline-content .cd-date {
+            font-size: 13px;
+            font-size: 0.8125rem;
+        }
+
+        .cd-timeline-content .cd-read-more,
+        .cd-timeline-content .cd-date {
+            display: inline-block;
+        }
+
+        .cd-timeline-content p {
+            margin: 1em 0;
+            line-height: 1.6;
+        }
+
+        .cd-timeline-content img {
+            width: 100%;
+        }
+
+        .cd-timeline-content .cd-read-more {
+            float: right;
+            padding: .8em 1em;
+            background: #acb7c0;
+            color: white;
+            border-radius: 0.25em;
+        }
+
+        .no-touch .cd-timeline-content .cd-read-more:hover {
+            background-color: #bac4cb;
+        }
+
+        .cd-timeline-content .cd-date {
+            float: left;
+            padding: .8em 0;
+            opacity: .7;
+        }
+
+        .cd-timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            right: 100%;
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-right: 7px solid white;
+        }
+
+        .spinner {
+            margin: 100px auto;
+            width: 90px;
+            height: 90px;
+            position: relative;
+            text-align: center;
+            -webkit-animation: rotate 2.0s infinite linear;
+            animation: rotate 2.0s infinite linear;
+        }
+
+        .dot1,
+        .dot2 {
+            width: 60%;
+            height: 60%;
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            background-color: #67CF22;
+            border-radius: 100%;
+            -webkit-animation: bounce 2.0s infinite ease-in-out;
+            animation: bounce 2.0s infinite ease-in-out;
+        }
+
+        .dot2 {
+            top: auto;
+            bottom: 0px;
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        @-webkit-keyframes rotate {
+            100% {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @-webkit-keyframes bounce {
+            0%,
+            100% {
+                -webkit-transform: scale(0.0)
+            }
+            50% {
+                -webkit-transform: scale(1.0)
+            }
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: scale(0.0);
+                -webkit-transform: scale(0.0);
+            }
+            50% {
+                transform: scale(1.0);
+                -webkit-transform: scale(1.0);
+            }
+        }
     </style>
 </head>
 
-<body>
+<body id="main-vue">
     <div id="splash" style="position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 999;background-color: rgba(0,0,0,.3);">
         <div style="height:20%">
         </div>
@@ -443,21 +443,24 @@ Main components
         <div class="mui-popover-arrow"></div>
         <div class="mui-scroll-wrapper" id="video">
             <div style="height:44px">
-                <h1 class="mui-title" id='video_title'></h1></div>
-            <video id="video_tag" class="video-js vjs-default-skin" controls width="256" height="144" preload="auto" autoplay="true" data-setup='{}'>
-                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                <h1 class="mui-title" id='video_title'></h1>
+            </div>
+            <video id="video_tag" class="video-js vjs-default-skin" controls width="256" height="144" preload="auto" autoplay="true"
+                data-setup='{}'>
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/"
+                        target="_blank">supports HTML5 video</a></p>
             </video>
         </div>
     </div>
     <div class="mui-content">
         <div id="tabbar-select" class="mui-control-content">
             <section id="cd-timeline" class="cd-container">
-                <template v-for="item in items">
+                <template v-for="item in titems">
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-picture"></div>
                         <div class="cd-timeline-content">
                             <h2>{{ item.name }}</h2>
-                            <img src="{{ item.img }}">
+                            <img v-bind:src="item.img">
                             <p>{{ item.text }}</p>
                             <span class="cd-date">{{ item.date }}</span>
                         </div>
@@ -467,7 +470,7 @@ Main components
         </div>
         <div id="tabbar-video" class="mui-control-content">
             <ul id="list" class="mui-table-view mui-table-view-chevron">
-                <template v-for="item in items">
+                <template v-for="item in vitems">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right" href="#">{{ item.name }}</a>
                         <span v-if="item.isnew" class="mui-badge mui-badge-danger">{{ item.list.length }}</span>
@@ -485,7 +488,7 @@ Main components
         <div id="tabbar-image" class="mui-control-content">
             <h5 style="background-color:#efeff4">点击放大，双指缩放，左右滑动</h5>
             <ul class="mui-table-view" id='v'>
-                <template v-for="item in items">
+                <template v-for="item in pitems">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right" href="#">{{ item.name }}</a>
                         <span v-if="item.isnew" class="mui-badge mui-badge-danger">{{ item.list.length }}</span>
@@ -493,7 +496,8 @@ Main components
                             <ul class="mui-table-view mui-grid-view">
                                 <template v-for="m in item.list">
                                     <li class="mui-table-view-cell mui-media mui-col-xs-3">
-                                        <p><img class="mui-media-object" src="404.jpg" :lsrc='m.thu' data-preview-src="{{ m.ori }}" data-preview-group="{{ item.group }}"></p>
+                                        <p><img class="mui-media-object" src="404.jpg" :lsrc='m.thu' data-preview-src="{{ m.ori }}"
+                                                data-preview-group="{{ item.group }}"></p>
                                     </li>
                                 </template>
                             </ul>
@@ -526,247 +530,275 @@ Main components
     <script src="p1611.js"></script>
     <script src="p1612.js"></script>
     <script src="p1701.js"></script>
+    <script src="p1702.js"></script>
+    <script src="p1703.js"></script>
     <script src="v1607.js"></script>
     <script src="v1608.js"></script>
     <script src="v1609.js"></script>
     <script src="v1610.js"></script>
     <script src="v1611.js"></script>
     <script src="v1612.js"></script>
+    <script src="v1701.js"></script>
+    <script src="v1703.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/mui.min.js"></script>
     <script src="js/mui.zoom.js"></script>
     <script src="js/mui.previewimage.js"></script>
     <script type="text/javascript">
-    function GetQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return '';
-    }
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return '';
+        }
 
-    function bytesToSize(bytes) {
-        bytes = parseInt(bytes);
-        if (bytes === 0) return '0 B';
-        var k = 1000, // or 1024
-            sizes = ['B', 'KB', 'MB'],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
-        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-    }
-    window.HELP_IMPROVE_VIDEOJS = false;
-    var tdata = [{
-        name: '??',
-        img: '91865-e22ff758b217d381871a75d73f4af204fb1a7c16ca0d32dedaf6765d65b9dbc4',
-        text: '??',
-        date: '??'
-    }, {
-        name: '抬头',
-        img: '100093-c5cefd436d776a75e385e931f524214807cb9b5b2c4ab9ba3c57367e36c4e4c4',
-        text: '这个小动作，是你成长的一大步。',
-        date: '90天'
-    }, {
-        name: '满月',
-        img: '93828-1bdb2a6947ac6db18424540ed75f4cb09f5f838642bb187629e3a3fba5f86608',
-        text: '愿你美梦成真。',
-        date: '26天'
-    }, {
-        name: '回家',
-        img: '114255-996bc435bbc4493379e5ac11d9bc01dc5313e2dd45edb72a8000b5d9d62eac69',
-        text: '曾经，你还是瘦瘦的，有着细细长长的胳膊和腿。',
-        date: '15天'
-    }, {
-        name: '出生',
-        img: '88301-c7ff19e5670a1b74e1f2300cdd0cfab52a954ea96ffe6d9c3ad1cca11f211613',
-        text: '在一个下着淅淅沥沥小雨的清晨，你“毫无征兆”的降临了。',
-        date: '1天'
-    }, ];
-    var vdata = [{
-        name: '新增',
-        isnew: true,
-        list: [{
-            href: '14100667-0d7760ce755e0d4ab998402f763f65e65964016b7f89ed80ed0f816f1a2850f2',
-            time: '2016.01.02 20:15'
-        }, ]
-    }, v1612, v1611, v1610, v1609, v1608, v1607, ];
-    var pdata = [{
-        name: '新增',
-        group: 999,
-        isnew: true,
-        list: [{
-            ori: "119551-93ed9aa0ab59fc89c9d8998b3380f61c8438899539cfd65405509966f352303d",
-            thu: "2677-5d36ac6b7f026d5728c3a9ccc7e7bb23b638f12bb8db1b9f59835a71d1ad3beb"
+        function bytesToSize(bytes) {
+            bytes = parseInt(bytes);
+            if (bytes === 0) return '0 B';
+            var k = 1000, // or 1024
+                sizes = ['B', 'KB', 'MB'],
+                i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+        }
+        window.HELP_IMPROVE_VIDEOJS = false;
+        var tdata = [{
+            name: '??',
+            img: '91865-e22ff758b217d381871a75d73f4af204fb1a7c16ca0d32dedaf6765d65b9dbc4',
+            text: '??',
+            date: '??'
         }, {
-            ori: "121089-8ae39d8aa79ec068bef660346659593a5ef219ddf30ab63bbe452e8057564209",
-            thu: "2700-74f53683e0dd0850b0f3c1f2febfcf94178d33940e5c62cf86ca81105bf5bace"
+            name: '抬头',
+            img: '100093-c5cefd436d776a75e385e931f524214807cb9b5b2c4ab9ba3c57367e36c4e4c4',
+            text: '这个小动作，是你成长的一大步。',
+            date: '90天'
         }, {
-            ori: "125648-9a062b11028c4a99165d56777d61e8c693aa13bdbfeb42a563bc1ac816559434",
-            thu: "2800-e2c030d01f81abda079d44fb21f772e2dc8ff8efabfeaceb9d3673fb4dee6031"
+            name: '满月',
+            img: '93828-1bdb2a6947ac6db18424540ed75f4cb09f5f838642bb187629e3a3fba5f86608',
+            text: '愿你美梦成真。',
+            date: '26天'
         }, {
-            ori: "110404-0de7a2334f51eaa14cb1e4c9d604984944df1b9d504bc3e9ca7d3f3a5cc7c41b",
-            thu: "2610-e3205ff18dfc6c1725ba5c3bfa45fd43ad88d16e9f843f84dcd0735457f6cf25"
+            name: '回家',
+            img: '114255-996bc435bbc4493379e5ac11d9bc01dc5313e2dd45edb72a8000b5d9d62eac69',
+            text: '曾经，你还是瘦瘦的，有着细细长长的胳膊和腿。',
+            date: '15天'
         }, {
-            ori: "125925-eb28b6ed8d79de4cee8831888ccd2f05ee71b6393f16f5d7cc21eb6d4acda6bc",
-            thu: "2700-b85f660ec83c9d1d9a48313f481cbd23a942fc08c4806513a99378e1bd360eb1"
-        }, {
-            ori: "88737-5aa6313aa68c544f4bd70876f364832689ef916f652e30e441c84b25ead7647f",
-            thu: "2444-8d54f0e577f362f1559088a561515a6ec9b48b2211dbd70ef0746fdbb4684eaf"
-        }, {
-            ori: "87841-2a21c01909d8c1fdc6cd76e14dde373a7440a87b21a33420330d33ca29105542",
-            thu: "2536-a5b89761cc4e7b074b8b9fc093cf0e54b7ec94d9be7b383095ccd759d7d13544"
-        }, {
-            ori: "87048-fa4fded2563be8d3a3674b87bec8db65fb9bd76d712120a1d6e68cc27d9ab0b5",
-            thu: "2542-b086c214905c278b12d0b8d1f03f3493f985935ba75ecc79af6031cf9fedb4ca"
-        }, {
-            ori: "90219-4fa757d0793b98e09de0f7df5db7042e0d5005a779a583ed564317ed9e8ef910",
-            thu: "2582-2f9a779398e02aaebdf5c8ea4ba258edcdcd9da2eff9f9eb614ae56640b63d09"
-        }, {
-            ori: "90699-14d935cff03a713d24ce525386dc07ea46f8e2280ea3cee00f00fcc7aa2b5417",
-            thu: "2580-d33dbbfb1f1852e55830b9bd058a72c86b78a2fb8145ff0fbfa2de08c5dd0f9e"
-        }, {
-            ori: "91697-27e5e6ce64be20d0aff31340eae7c2ff3ab38900820bdbe8d90abf7b3f8941cc",
-            thu: "2630-00dca0cb61b9c63054aca68491f841c1887f8dc6b5fcd67623ae22d82cedafe6"
-        }, {
-            ori: "87733-0417bac4914c6475096ead1b614387ae7d9de3801ae27dcd95a0b9d8776c64eb",
-            thu: "2621-fb4f8bf42e8a438e78f7dfe1d39ce6e6fb30078bac89f609bf8aa8ca60093c5b"
-        }, {
-            ori: "86630-b7eed2349d7af1e19a361c8336e3d593332fc4dcf8bd3bf016e9863cacd91506",
-            thu: "2587-1b00435cb5277b479f8d3e9a0a7e626259227a753b151b3b9be5604b30c0de44"
-        }, {
-            ori: "87741-8754a9f62516d6bea31a1e931cd29cafc4a62cec5fbde1bd3bdf9f3266280390",
-            thu: "2547-eda902a8ceb46d5be3bf16afb902e975babe22a808e099f50500df4cda523a11"
-        }, {
-            ori: "84632-c3175e81d9219b7ce90f5f382bb34bdef92e6d88de0a67f37ad33dababa144c6",
-            thu: "2514-2c991d22e9e87d203d4cd36acb9819434029d7e19cc5760f51ff628c57d19d1b"
-        }, {
-            ori: "85055-3cd80317149809d17a2c345e6de960c47e7d3488d43380a035ac695790680dd9",
-            thu: "2476-d4a8e9fe71a1e4588246326d72f23ecffa9a1abed0e6d207a6f75006900360ce"
-        }, {
-            ori: "85477-8aa7b38ba7efe8397f258ead53b41dd7e66848464e03e9762919ba14c0d26972",
-            thu: "2565-81ae771add52ee7a7fcf5030f61406babff4f3e51e9477dac56cbdeebef0d74e"
-        }, {
-            ori: "82394-7731d4f51e51d3ad5c2d1bcde745d4bd28325add2dc9bf870b042b7db6075fb0",
-            thu: "2509-5e0d89a482ae9bc741b280b656f25509b450865e7ad6a7414f9121c3c7f296c5"
-        }, {
-            ori: "89807-11848caa6ac7bb8c4770ae65395a271d0a264851a97f5098c8ae52ebb1a753bd",
-            thu: "2565-5712cedcec4cc4468db299925a9a63e73aa55043bbd1fd32f8d09c8a512969d5"
-        }, {
-            ori: "94483-edead9615fccf53a7b7e5cde370987654c06e6c4e1a1243ee0165cdd5a705fe2",
-            thu: "2567-ca54dceac2d5746c5016ed79aff085329d57dc6ab5407875366918a950d31518"
-        }, {
-            ori: "92258-54ee125a1e4f3ebddb4923c700712682d500513805a72f26fb0e11cf83d2a8d0",
-            thu: "2520-977dc8099cfb51d8f4d30858104df44f07cb4ed681747289fbbdc12635dcf515"
-        }, {
-            ori: "147771-b3b32f31a363167da88add73990153d8874e932b9506cbf26a46226ab0647cef",
-            thu: "3072-75f14105b44829b5bad90c7fb2f140749acbda830ccfc608319aa6d58472bcd1"
-        }, {
-            ori: "161244-58c5eb228ee164221b101ad2e987556995aae1f4e1b16a5c50e3f7ece77c65e6",
-            thu: "3020-dd21edb2054df830f439a06b2174f7e6f5d5aa9552277ffdb15895eb0b213475"
-        }, {
-            ori: "93197-0da13350c9e6d9a072370aca5e351390cad7cfc71099c7a33943bc2f7f175fab",
-            thu: "2605-d9edb13eed3c453eba9d0aa0bb69a0032f43658f25f963e3b2299c46d7f1f757"
-        }, {
-            ori: "94598-831e7515f91b6e5afb75b61df62d3340ea42ee68946169b2f361ae3c1a3e845a",
-            thu: "2851-932b4489fb7ce5580ed4a33ea86e11bcb8587734bd1617a4a49be3c2f8cb65af"
-        }, {
-            ori: "71401-7f75aee0646bb5644f1cf1b5776e823cde5e23de0e9c554fa2390d3340d03075",
-            thu: "2385-3f1c1373b68d9364341d4288cacd50e71bb1f3b16d207de7424654bddb2b1d7f"
-        }, {
-            ori: "78130-4cad289dc7df6d6153d66b25f3102ff55fa0ce884a5da8e8cf7b019f6e0a856c",
-            thu: "2551-105025842755bfcf89bc0dc06619a603ffa9ed7c0ff026e2cd4149dfaed76276"
-        }, {
-            ori: "82883-71c53caffb18aadf68e5c415d25bec144a3a1f8121e59891f6b09bd46ee41f90",
-            thu: "2281-4e2fa4101543f26a2e8aadfd2a012c5112be798923077ab5f266996a27d3cec3"
-        }, {
-            ori: "87257-04b94819b4a375a27620fe3bfa424a7e5b816950b510e2d0e52609c8a388fb9b",
-            thu: "2293-c9e70597b7c37548cd892492555b43174a4b3c0af25c48a4ec80246f5b11df7a"
-        }, ]
-    }, p1701, p1612, p1611, p1610, p1609, p1608, p1607];
+            name: '出生',
+            img: '88301-c7ff19e5670a1b74e1f2300cdd0cfab52a954ea96ffe6d9c3ad1cca11f211613',
+            text: '在一个下着淅淅沥沥小雨的清晨，你“毫无征兆”的降临了。',
+            date: '1天'
+        }, ];
+        var vdata = [{
+            name: '新增',
+            isnew: true,
+            list: [{
+                    href: '6500082-187fede645943ab94e5f815ab69f7cec6b9bb01fd52561eb9ddded656df9218d',
+                    time: '2017.04.04 15:18'
+                },
+                {
+                    href: '17489884-060322c5f5b4d8b5e7b5ff292196f5cd3be1d0f2744144f86cf824be9e3e72d5',
+                    time: '2017.04.03 08:29'
+                },
+                {
+                    href: '10467531-a009df3dfd6bba5d2d3ac4a77f2046b9b84af2faf26d64623eb4bb228d322a73',
+                    time: '2017.04.02 13:04'
+                },
+            ]
+        }, v1703, v1701, v1612, v1611, v1610, v1609, v1608, v1607, ];
+        var pdata = [{
+            name: '新增',
+            group: 999,
+            isnew: true,
+            list: [{
+                    ori: "111690-777cea735ac006c371af2b838058f889a4f6653229e9832529d043702749e9db",
+                    thu: "2496-368c5aa302a6bbda903a606c93c67354eb54753ff07087f7dc36a46b545c97fc"
+                },
+                {
+                    ori: "111356-bc0f8cc440cfac2df35b09f1b08b9280c18cee95070be4075f9d8448b02f292b",
+                    thu: "2502-c255fbe9561ecd650b9fd5d83e39a8e6dfd9566a963d96fcb5def00cc077c24b"
+                },
+                {
+                    ori: "116770-ce4f6fb2947d966a48929f2bf247c0795945c245807431a6ef89617c2acfe820",
+                    thu: "2603-dad3f5e556bce367170cb45cf614a7901b68d4160982a0fb6382b6e3075e9e3c"
+                },
+                {
+                    ori: "91859-38ba9008a7004c46d3e3617f62233e205156a1a276fa1429903088f18da843ec",
+                    thu: "2447-e527784d9448cd69af55442673e44634a6a58b3a1728598c0b0d2fcbfb32b04d"
+                },
+                {
+                    ori: "97337-3a243dad24c513c52c366441fd3bda0fa0ce6b917a6ac2f7ce75f44db98d6492",
+                    thu: "2574-a434e83c78e5b6a7ca4c60d9d778ebd6729b5e45495636f7d72fddc0f0cbb81d"
+                },
+                {
+                    ori: "139772-a686a8085b15c72863a106269c1766dc58e339ef061ecf70d307087748e84b76",
+                    thu: "2801-294ce2cd0c8fc497910c3467b2a46f65c46de225c3ca0df25cc53fdf0b316bdb"
+                },
+                {
+                    ori: "114537-6f7c0b3d8db710f16f2def526cbfd54649564934577a5673552ad45fcb5fe12a",
+                    thu: "2637-47ed06a7603f651e9c53581b4aba39f0a05376a1f6e1ab368f506184f8083908"
+                },
+                {
+                    ori: "113833-ca336d374a717a6b98aee52a3c9ff40934a73051ad7bbb96a2001d7bfbcb6ef6",
+                    thu: "2680-0d5b28b3b5c3de9cea6da0337358db7d7967fa25187d018c4953fe4428d1602d"
+                },
+                {
+                    ori: "86239-00f5b7704ee2a26be9321aeff25eabf73e5a6532a6d6848825fb894eef1f8b74",
+                    thu: "2515-34f110b712c22d5b43c4281dc365239e5f4578a9602588dda12e9b4480f7dd9e"
+                },
+                {
+                    ori: "107722-b43de6053fb618fa297f84a90cca15a08deeb5ab11096d04b659724908861db9",
+                    thu: "2635-875ee79f756a2feb238898189de582ea3820e39f02f631cf3148b17609ef6f59"
+                },
+                {
+                    ori: "98218-ee1bbfee3fa835436f7284ec9dd3f1a480f952bb3152415c2827c1884a7cb5fb",
+                    thu: "2540-f5d55a17fc883b587d89c1d860c5f9c0df811df3f66b424118bdd5825b3031b8"
+                },
+                {
+                    ori: "114972-c57e6189f2451e6b5c412b6cfef8f0a04621833ec0ebdf8106a27dd839a9d021",
+                    thu: "2757-5bfe288e43d78bb85597cc49ea2f17e343d4b8f498e562ff49ade524c979907d"
+                },
+                {
+                    ori: "118496-2e21da86cea863d7cccc7e814e2cfbb3eadf8e6b672e74eb17b91032a3a2e098",
+                    thu: "2761-196d4aac35439c3199328187d3c6c588d17ae0688e65c6eef13d1e62fc52c761"
+                },
+                {
+                    ori: "123619-ae7a3696517b3a99495bac0f337ec0c3446e6bb38eed82006fdfb8c53b1b734d",
+                    thu: "2919-1b5a3d9e74d18e971d2f09e2c1edf4663c4e75e19972bacb958796a259cd2a50"
+                },
+                {
+                    ori: "66243-efa2bc2a18983c959e42fc810e8177b600cdc8c9bd463015c0eae2507f84860c",
+                    thu: "2409-5292bcc0590d7211421d5fd1509da65783081bc816fe662a04daf14a56ce1244"
+                },
+                {
+                    ori: "63665-6635343a893f8bff52c01aadd051d9361e4aef38addd021ddbde1556d53996bd",
+                    thu: "2328-112920707d18540d65863f1191e305b914f664aa5bdf416b78cd601dc8e041d0"
+                },
+                {
+                    ori: "61307-5bcb47fa924b0f8f0663ae9a0dd08c08c0df40724a33b9f0bbca3c415fdab55f",
+                    thu: "2239-164e1e6f968090b3970d15831889b85cab690f4882331cfd6b346d45e51b0726"
+                },
+                {
+                    ori: "67780-a189d65d1f578d9a4a869fa1a5641f9dcebee6b0f6d6894e919569dac4c83761",
+                    thu: "2447-48e434270edf5c17ce2e07c6a5b591b836fd2e463bce09f4d0aed3a077a35c74"
+                },
+                {
+                    ori: "77907-02c7b5eaef4650b9c743e3357d799a94a14b0e41947aea1b9b1fd73450ef89c1",
+                    thu: "2519-eb3b521006666734cef8adc09d708b15487cae4281cc9a66f18fec92491ee282"
+                },
+                {
+                    ori: "78529-81958217eabbb85dac222866d3d5b518104dc8a2177db8486a8e8a332cb0ef08",
+                    thu: "2709-c2646333c248393a0bb6a22225c17afa34fcc3532ec037f275de0b92d7811310"
+                },
+                {
+                    ori: "119402-2c275d0ae2b7f547e2a5649e846e8a2bedad3f5d8b0f0bd8668e946ac0080fc3",
+                    thu: "3107-e32ef43b2c3d1b508e6dc581dc1e6bfd799ff67d645998e35a7c0d0e85dff1fe"
+                },
+                {
+                    ori: "123699-3889fcb38fe3969bf70541589ac7d661e66651130fc16315399354b5ce0b43f7",
+                    thu: "3058-cd9afc139941d64b10010fa43307c2d92fa77f9795e24d1f4a3a35c961e8a7e6"
+                },
+                {
+                    ori: "222435-7aca5969ecda897154762a8c48b120c87172dd4113c9d23a21398822f351769c",
+                    thu: "3169-34d5df1d65c374a93150bbc1a650bc9a170fc0b56f04f0424b981ac21602a913"
+                },
+                {
+                    ori: "221840-78156929ab73b21f9b692b39cc19cb9d1b9282fa25b926d9d06bff45747eee29",
+                    thu: "3179-13adb6ac2f62e06f5d0cefa3703be479d8b0fc348e5b45fd1436dd6c7a597edc"
+                },
+                {
+                    ori: "215073-d27c8adf4958bc0df785b8a09e1c1ffe5549b0a6cefd44bef321268c52bc80cf",
+                    thu: "3044-a50588a88be7314b2b746338c1b6199259314ece603742d0ce45d4dea755c996"
+                },
+                {
+                    ori: "102219-aba9f8807c5b5c5700aa451b5deac2bf68c6cfdebd8ccd54ccb40ce7d38bda82",
+                    thu: "2454-66a5baa1ada8f8bd501594d658a5dc19ef0dc1e8cff9fd41af4343db7f4e2f2b"
+                },
+                {
+                    ori: "107371-2776c22a82c19363151dd5151ebe8e52e02f32e868e52f722fcb1dd20468ca63",
+                    thu: "2460-2c42375ec83a7acc3588ddda45616b8455e22c09ff29b1096522f8cce907d50c"
+                },
+                {
+                    ori: "101477-ec3f276e5eaa43a305ac95076f54864187c48e129e72443951087a6d9ad4d552",
+                    thu: "2480-832ddeea4315c633827748ff0d31e6547a464fabb87ddd96a68700d52adbfa0c"
+                },
+            ]
+        }, p1703, p1702, p1701, p1612, p1611, p1610, p1609, p1608, p1607];
     </script>
-    <script src="//assest.meikemeiyin.cn/js/video.min.js"></script>
+    <script src="js/video.min.js"></script>
+    <script src="js/lang/zh-CN.js"></script>
     <script>
-    window.onload = function() {
-        var elem = document.getElementById('splash');
-        elem.parentNode.removeChild(elem);
-        document.getElementById('tabbar-select-tab').classList.add('mui-active');
-        document.getElementById('tabbar-select').classList.add('mui-active');
-        videojs.options.flash.swf = "//assest.meikemeiyin.cn/js/video-js.swf";
-        var player = videojs('video_tag', {
-            controls: true,
-            preload: 'auto',
-            width: 256,
-            height: 144,
-            autoplay: true
-        });
-        mui.init({
-            keyEventBind: {
-                backbutton: false
-            },
-            beforeback: function() {
-                if (mui.previewImage().isShown()) {
-                    mui.previewImage().close();
-                    return false;
-                }
-                return true;
-            }
-        });
-        mui('body').on('hidden', '.mui-popover', function(e) {});
-        mui('body').on('shown', '.mui-popover', function(e) {
-            id = window.videoid;
-            type = window.videotype + ' ' + bytesToSize(id.split('-'));
-            if (id == null) {
-                return;
-            }
-            node = document.getElementById("video_title");
-            node.innerHTML = type;
-            player.src(id, "video/mp4");
-        });
-        var w = new Vue({
-            el: '#cd-timeline',
-            data: {
-                items: tdata
-            }
-        });
-        var w = new Vue({
-            el: '#list',
-            ready: function() {
-                mui('#list').on('tap', 'a', function() {
-                    window.videoid = this.getAttribute('data-href');
-                    window.videotype = this.innerText;
-                });
-            },
-            data: {
-                items: vdata
-            }
-        });
-        var v = new Vue({
-            el: '#v',
-            ready: function() {
-                mui.previewImage({
-                    sliderdestroy: true
-                });
-                mui('#v').on('tap', 'a', function() {
-                    var l = this.parentNode;
-                    arr = l.getElementsByTagName('img');
-                    for (var i = 0; i < arr.length; i++) {
-                        node = arr[i];
-                        lsrc = node.getAttribute('lsrc');
-                        if (node.src.indexOf(lsrc) < 0) {
-                            node.src = lsrc;
-                        }
-                    }
-                });
-            },
-            data: {
-                items: pdata
-            }
-        });
-        mui('#g2048').on('tap', 'a', function() {
-            mui.openWindow({
-                url: '2048.html',
-                id: 'g2048'
+        window.onload = function () {
+            var elem = document.getElementById('splash');
+            elem.parentNode.removeChild(elem);
+            document.getElementById('tabbar-select-tab').classList.add('mui-active');
+            document.getElementById('tabbar-select').classList.add('mui-active');
+            videojs.options.flash.swf = "js/video-js.swf";
+            var player = videojs('video_tag', {
+                controls: true,
+                preload: 'auto',
+                width: 256,
+                height: 144,
+                autoplay: true,
+                language: 'zh-CN'
             });
-        });
+            mui.init({
+                keyEventBind: {
+                    backbutton: false
+                },
+                beforeback: function () {
+                    if (mui.previewImage().isShown()) {
+                        mui.previewImage().close();
+                        return false;
+                    }
+                    return true;
+                }
+            });
+            mui('body').on('hidden', '.mui-popover', function (e) {});
+            mui('body').on('shown', '.mui-popover', function (e) {
+                id = window.videoid;
+                type = window.videotype + ' ' + bytesToSize(id.split('-'));
+                if (id == null) {
+                    return;
+                }
+                node = document.getElementById("video_title");
+                node.innerHTML = type;
+                player.src(id, "video/mp4");
+            });
+            var v = new Vue({
+                el: '#main-vue',
+                ready: function () {
+                    mui('#list').on('tap', 'a', function () {
+                        window.videoid = this.getAttribute('data-href');
+                        window.videotype = this.innerText;
+                    });
+                    mui.previewImage({
+                        sliderdestroy: true
+                    });
+                    mui('#v').on('tap', 'a', function () {
+                        var l = this.parentNode;
+                        arr = l.getElementsByTagName('img');
+                        for (var i = 0; i < arr.length; i++) {
+                            node = arr[i];
+                            lsrc = node.getAttribute('lsrc');
+                            if (node.src.indexOf(lsrc) < 0) {
+                                node.src = lsrc;
+                            }
+                        }
+                    });
+                },
+                data: {
+                    titems: tdata,
+                    vitems: vdata,
+                    pitems: pdata
+                }
+            });
+            mui('#g2048').on('tap', 'a', function () {
+                mui.openWindow({
+                    url: '2048.html',
+                    id: 'g2048'
+                });
+            });
 
-    };
+        };
     </script>
 </body>
 
