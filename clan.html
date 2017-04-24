@@ -22,7 +22,7 @@
 
 <body>
 </body>
-<script src="http://baby.zxyqwe.com/js/d3.min.js"></script>
+<script src="js/d3.min.js"></script>
 <script>
     window.onload = function () {
         var relation = [{
@@ -47,6 +47,9 @@
                 s: ['张环', '王海明'],
                 t: ['王书悦']
             }],
+            relation_image = {
+                '张俨宁': "91865-e22ff758b217d381871a75d73f4af204fb1a7c16ca0d32dedaf6765d65b9dbc4"
+            },
             json = {
                 links: [],
                 nodes: []
@@ -67,7 +70,8 @@
                     relation_map[tmps] =
                         json.nodes.push({
                             name: tmps,
-                            group: 1
+                            group: 1,
+                            image: tmps in relation_image ? relation_image[tmps] : "favicon.ico"
                         });
                 }
                 json.links.push({
@@ -81,7 +85,8 @@
                     relation_map[tmps] =
                         json.nodes.push({
                             name: tmps,
-                            group: 1
+                            group: 1,
+                            image: tmps in relation_image ? relation_image[tmps] : "favicon.ico"
                         });
                 }
                 json.links.push({
@@ -137,7 +142,7 @@
         node.append("image")
             .attr("xlink:href", function (d) {
                 if (d.group > 0)
-                    return "https://github.com/favicon.ico";
+                    return d.image;
                 else
                     return '';
             })

@@ -21,3 +21,9 @@ gulp.task('g1', function() {
         .pipe(htmlmin(options))
         .pipe(gulp.dest('html'));
 });
+
+gulp.task('clan', function() {
+    return gulp.src('clan.html')
+        .pipe(htmlmin(options))
+        .pipe(gulp.dest('html'));
+});

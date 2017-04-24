@@ -23,6 +23,7 @@ def main():
 
     arg = ArgumentParser(description='baby')
     arg.add_argument('-i', '--index', default=False, help='upload index', required=False, action='store_true')
+    arg.add_argument('-c', '--clan', default=False, help='upload clan', required=False, action='store_true')
     arg.add_argument('-r', '--replace', default=False, action='store_true', help='replace js', required=False)
     arg.add_argument('-j', '--js', default=False, action='store_true', help='upload js', required=False)
     arg.add_argument('-t', '--test', default=False, action='store_true', help='upload test', required=False)
@@ -48,6 +49,8 @@ def main():
         js(bucket)
     if arg.index:
         index(bucket)
+    if arg.clan:
+        clan(bucket)
     if arg.test:
         test(bucket)
 
@@ -127,6 +130,14 @@ def index(bucket):
     # bucket.put_object('2048.html', open('html/2048.html').read(),
     #                   headers={'Cache-Control': 'public'})
     bucket.batch_delete_objects(['test.html'])  # ,'video.html'
+
+
+def clan(bucket):
+    out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp clan', shell=True,
+                                  stderr=subprocess.STDOUT)
+    print out
+    bucket.put_object('clan.html', open('html/clan.html').read(),
+                      headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
 
 
 def test(bucket):
