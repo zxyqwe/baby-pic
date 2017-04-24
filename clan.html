@@ -91,14 +91,19 @@
             }
         }
 
-        var width = 1000,
-            height = 1000,
+        var width = 2000,
+            height = 2000,
             img_width = 50,
             img_height = 50;
 
         var svg = d3.select("body").append("svg")
             .attr("width", width)
             .attr("height", height);
+
+        var force = d3.layout.force()
+            .distance(100)
+            .charge(-500)
+            .size([width, height]);
 
         var defs = svg.append("defs");
 
@@ -117,11 +122,6 @@
         arrowMarker.append("path")
             .attr("d", arrow_path)
             .attr("fill", "#ff0000");
-
-        var force = d3.layout.force()
-            .distance(100)
-            .charge(-1000)
-            .size([width, height]);
 
         var link = svg.selectAll(".link")
             .data(json.links)
@@ -165,8 +165,8 @@
 
                 if (d.target.group > 0) {
                     l = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                    x3 = x1 + ((l - img_width) / l) * (x2 - x1);
-                    y3 = y1 + ((l - img_height) / l) * (y2 - y1);
+                    x3 = x1 + ((l - img_width / 1.4) / l) * (x2 - x1);
+                    y3 = y1 + ((l - img_height / 1.4) / l) * (y2 - y1);
                     url = "url(#arrow)";
                 } else {
                     x3 = x2;
