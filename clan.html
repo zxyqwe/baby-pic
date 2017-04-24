@@ -31,6 +31,21 @@
             }, {
                 s: ['张奕', '宋桂芝'],
                 t: ['张小奕']
+            }, {
+                s: ['?1', '?2'],
+                t: ['张奕', '张弘']
+            }, {
+                s: ['?3', '?4'],
+                t: ['宋桂芝', '宋红艳', '?5', '?6']
+            }, {
+                s: ['宋红艳', '王振先'],
+                t: ['王子鉴']
+            }, {
+                s: ['张弘', '王立新'],
+                t: ['王志骁']
+            }, {
+                s: ['张环', '王海明'],
+                t: ['王书悦']
             }],
             json = {
                 links: [],
@@ -116,7 +131,8 @@
         var node = svg.selectAll(".node")
             .data(json.nodes)
             .enter().append("g")
-            .attr("class", "node");
+            .attr("class", "node")
+            .call(force.drag);
 
         node.append("image")
             .attr("xlink:href", function (d) {
