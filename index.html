@@ -529,16 +529,21 @@ Main components
     <script src="js/mui.zoom.js"></script>
     <script src="js/mui.previewimage.js"></script>
     <script type="text/javascript">
-        function bytesToSize(bytes) {
+        window.HELP_IMPROVE_VIDEOJS = false;
+    </script>
+    <script src="js/video.min.js"></script>
+    <script src="js/lang/zh-CN.js"></script>
+    <script>
+        var bytesToSize = function (bytes) {
             bytes = parseInt(bytes);
             if (bytes === 0) return '0 B';
             k = 1000, // or 1024
                 sizes = ['B', 'KB', 'MB'],
                 i = Math.floor(Math.log(bytes) / Math.log(k));
             return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-        }
+        };
 
-        function addyear() {
+        var addyear = function () {
             date = new Date(),
                 year = date.getFullYear() % 100,
                 mayear = year * 100 + date.getMonth() + 1,
@@ -560,8 +565,7 @@ Main components
                 if (v != undefined)
                     vdata.push(v);
             }
-        }
-        window.HELP_IMPROVE_VIDEOJS = false;
+        };
         var tdata = [{
             name: '??',
             img: '91865-e22ff758b217d381871a75d73f4af204fb1a7c16ca0d32dedaf6765d65b9dbc4',
@@ -611,10 +615,6 @@ Main components
             isnew: true,
             list: []
         }];
-    </script>
-    <script src="js/video.min.js"></script>
-    <script src="js/lang/zh-CN.js"></script>
-    <script>
         window.onload = function () {
             addyear();
             var elem = document.getElementById('splash');

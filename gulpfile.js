@@ -1,16 +1,16 @@
 module.paths.push('/usr/local/lib/node_modules');
-var gulp = require('gulp');
-var htmlmin = require('gulp-htmlmin');
-var options = {
-    collapseWhitespace: true,
-    collapseBooleanAttributes: true,
-    removeComments: true,
-    removeEmptyAttributes: true,
-    removeScriptTypeAttributes: true,
-    removeStyleLinkTypeAttributes: true,
-    minifyJS: true,
-    minifyCSS: true
-};
+var gulp = require('gulp'),
+    htmlmin = require('gulp-htmlmin'),
+    options = {
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeComments: true,
+        removeEmptyAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        minifyJS: true,
+        minifyCSS: true
+    };
 gulp.task('html', function () {
     gulp.src('index.js')
         .pipe(htmlmin(options))
