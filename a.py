@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
+import sys
+from argparse import ArgumentParser
+import subprocess
 import re
 import hashlib
 import glob
-from PIL import Image
 import oss2
 from config import ACCESS, KEY, BNAME, ENDPOINT
-import subprocess
-from argparse import ArgumentParser
 from gooey import Gooey
-import sys
+from PIL import Image
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -22,12 +22,18 @@ def main():
     bucket = oss2.Bucket(auth, ENDPOINT, BNAME)
 
     arg = ArgumentParser(description='baby')
-    arg.add_argument('-i', '--index', default=False, help='upload index', required=False, action='store_true')
-    arg.add_argument('-c', '--clan', default=False, help='upload clan', required=False, action='store_true')
-    arg.add_argument('-r', '--replace', default=False, action='store_true', help='replace js', required=False)
-    arg.add_argument('-j', '--js', default=False, action='store_true', help='upload js', required=False)
-    arg.add_argument('-t', '--test', default=False, action='store_true', help='upload test', required=False)
-    arg.add_argument('-n', '--notuse', default=11, help='not use', required=True, action='count')
+    arg.add_argument('-i', '--index', default=False,
+                     help='upload index', required=False, action='store_true')
+    arg.add_argument('-c', '--clan', default=False,
+                     help='upload clan', required=False, action='store_true')
+    arg.add_argument('-r', '--replace', default=False,
+                     action='store_true', help='replace js', required=False)
+    arg.add_argument('-j', '--js', default=False,
+                     action='store_true', help='upload js', required=False)
+    arg.add_argument('-t', '--test', default=False,
+                     action='store_true', help='upload test', required=False)
+    arg.add_argument('-n', '--notuse', default=11,
+                     help='not use', required=True, action='count')
     arg = arg.parse_args()
 
     vlist = list(glob.glob(r'./video/*.mp4'))
@@ -118,24 +124,36 @@ def video(b, bucket):
         print "{ href: '" + content + "', time: '" + m + "' },"
 
 
-def index(bucket):
+def gulptask():
     out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp html', shell=True,
                                   stderr=subprocess.STDOUT)
     print out
+
+
+def index(bucket):
+    plist = list(glob.glob(r'./js/*.js'))
+    res = ''
+    for p in plist:
+        with open(p) as f:
+            al = f.read()
+        res += al + ';'
+    with open('index.js', 'w') as f:
+        f.write(res)
+    gulptask()
     bucket.put_object('index.html', open('html/index.html').read(),
+                      headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
+    bucket.put_object('index.js', open('html/index.js').read(),
                       headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
     # out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp g1', shell=True,
     #                               stderr=subprocess.STDOUT)
     # print out
     # bucket.put_object('2048.html', open('html/2048.html').read(),
     #                   headers={'Cache-Control': 'public'})
-    bucket.batch_delete_objects(['test.html'])  # ,'video.html'
+    # bucket.batch_delete_objects(['test.html'])  # ,'video.html'
 
 
 def clan(bucket):
-    out = subprocess.check_output('export NODE_PATH=/usr/local/lib/node_modules;gulp clan', shell=True,
-                                  stderr=subprocess.STDOUT)
-    print out
+    gulptask()
     bucket.put_object('clan.html', open('html/clan.html').read(),
                       headers={'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'})
 
@@ -146,11 +164,14 @@ def test(bucket):
 
 
 def js(bucket):
-    plist = list(glob.glob(r'./js/*17*.js'))
+    plist = list(glob.glob(r'./js/*.js'))
+    res = []
     for m in plist:
         key = m.split('/')[-1]
         print key, m
-        bucket.put_object(key, open(m).read())
+        # bucket.put_object(key, open(m).read())
+        res.append(key)
+    bucket.batch_delete_objects(res)
 
 
 if __name__ == '__main__':

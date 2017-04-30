@@ -11,19 +11,17 @@ var options = {
     minifyJS: true,
     minifyCSS: true
 };
-gulp.task('html', function() {
-    return gulp.src('index.html')
+gulp.task('html', function () {
+    gulp.src('index.js')
         .pipe(htmlmin(options))
         .pipe(gulp.dest('html'));
-});
-gulp.task('g1', function() {
-    return gulp.src('2048.html')
+    gulp.src('index.html')
         .pipe(htmlmin(options))
         .pipe(gulp.dest('html'));
-});
-
-gulp.task('clan', function() {
-    return gulp.src('clan.html')
+    gulp.src('2048.html')
+        .pipe(htmlmin(options))
+        .pipe(gulp.dest('html'));
+    gulp.src('clan.html')
         .pipe(htmlmin(options))
         .pipe(gulp.dest('html'));
 });
