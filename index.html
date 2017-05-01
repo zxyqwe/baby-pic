@@ -445,8 +445,7 @@ Main components
             <div style="height:44px">
                 <h1 class="mui-title" id='video_title'></h1>
             </div>
-            <video id="video_tag" class="video-js vjs-default-skin" controls width="256" height="144" preload="auto" autoplay="true"
-                data-setup='{}'>
+            <video id="video_tag" class="video-js vjs-default-skin">
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/"
                         target="_blank">supports HTML5 video</a></p>
             </video>
@@ -486,7 +485,7 @@ Main components
             </ul>
         </div>
         <div id="tabbar-image" class="mui-control-content">
-            <h5 style="background-color:#efeff4">点击放大，双指缩放，左右滑动</h5>
+            <h4 style="background-color:#efeff4">点击放大，双指缩放，左右滑动</h4>
             <ul class="mui-table-view" id='v'>
                 <template v-for="item in pitems">
                     <li class="mui-table-view-cell mui-collapse">
@@ -518,6 +517,12 @@ Main components
                     <a href="#">
                         <span class="mui-icon mui-icon-star"></span>
                         <div class="mui-media-body">2048</div>
+                    </a>
+                </li>
+                <li id='clan' class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <a href="#">
+                        <span class="mui-icon mui-icon-contact"></span>
+                        <div class="mui-media-body">亲戚关系</div>
                     </a>
                 </li>
             </ul>
@@ -622,7 +627,7 @@ Main components
             document.getElementById('tabbar-select-tab').classList.add('mui-active');
             document.getElementById('tabbar-select').classList.add('mui-active');
             videojs.options.flash.swf = "js/video-js.swf";
-            var player = videojs('video_tag', {
+            window.player = videojs('video_tag', {
                 controls: true,
                 preload: 'auto',
                 width: 256,
@@ -642,7 +647,9 @@ Main components
                     return true;
                 }
             });
-            mui('body').on('hidden', '.mui-popover', function (e) {});
+            mui('body').on('hidden', '.mui-popover', function (e) {
+                window.player.pause();
+            });
             mui('body').on('shown', '.mui-popover', function (e) {
                 id = window.videoid;
                 type = window.videotype + ' ' + bytesToSize(id.split('-'));
@@ -651,7 +658,7 @@ Main components
                 }
                 node = document.getElementById("video_title");
                 node.innerHTML = type;
-                player.src(id, "video/mp4");
+                window.player.src(id, "video/mp4");
             });
             var vmain = new Vue({
                 el: '#main-vue',
@@ -685,6 +692,12 @@ Main components
                 mui.openWindow({
                     url: '2048.html',
                     id: 'g2048'
+                });
+            });
+            mui('#clan').on('tap', 'a', function () {
+                mui.openWindow({
+                    url: 'clan.html',
+                    id: 'clan'
                 });
             });
 
